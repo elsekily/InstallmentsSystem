@@ -1,6 +1,6 @@
 using System;
 
-namespace InstallmentsSystem.Models
+namespace InstallmentsSystem.Entities.Models
 {
     public class ErrorViewModel
     {
