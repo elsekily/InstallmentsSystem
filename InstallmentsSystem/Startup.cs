@@ -1,5 +1,6 @@
 using System.Text;
 using AutoMapper;
+using InstallmentsSystem.Entities.Models;
 using InstallmentsSystem.Entities.Resources;
 using InstallmentsSystem.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -52,6 +53,9 @@ namespace InstallmentsSystem
 
             services.AddDbContext<InstallmentsSystemDbContext>(options =>
                 options.UseSqlite("Filename=Yaseen.db"));
+
+            services.AddIdentity<User, Role>()
+               .AddEntityFrameworkStores<InstallmentsSystemDbContext>();
 
             services.AddAutoMapper(typeof(Startup));
 
