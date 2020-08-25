@@ -18,6 +18,8 @@ namespace InstallmentsSystem.Entities.Models
         public int DevicePrice { get; set; }
         [DisplayName("المقدم")]
         public int FirstInstallment { get; set; }
+        [DisplayName("الباقي")]
+        public int Remaining { get; set; }
         [DisplayName("القسط")]
         public int MontlyPayment { get; set; }
         public IList<InstallmentClients> Clients { get; set; }
