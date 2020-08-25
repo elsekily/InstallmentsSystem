@@ -1,8 +1,28 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<Installment>
+@{
+    ViewBag.Title = "الرئيسية";
 }
+<h2>المتأخرون عن دفع القسط</h2>
+<br />
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@if (!Model.Any())
+{
+    <br />
+    <br />
+    <p>لايوجد متأخرين</p>
+}
+else
+{
+    <br />
+    <br />
+    <table id="employees" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="not_mapped_style" style="text-align:right">الأسم</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+        </tbody>
+    </table>
+}
