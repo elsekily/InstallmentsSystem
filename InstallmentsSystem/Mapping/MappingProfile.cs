@@ -13,6 +13,7 @@ namespace InstallmentsSystem.Mapping
         public MappingProfile()
         {
             //API to Domain
+
             CreateMap<InstallmentSaveResource, Installment>()
                 .ForMember(i => i.Id, opt => opt.Ignore())
                 .ForMember(i => i.InstallDate, opt => opt.Ignore())
@@ -33,6 +34,19 @@ namespace InstallmentsSystem.Mapping
                     i.NextPayment = DateTime.Now.AddMonths(1);
                     i.Clients.Add(new InstallmentClients() { ClientId = isr.ClientId });
                 });
+
+            CreateMap<PaymentSaveResource, Payment>()
+                .ForMember(p => p.Id, opt => opt.Ignore())
+                .ForMember(p => p.Date, opt => opt.Ignore())
+                .ForMember(p => p.MonthNumber, opt => opt.Ignore())
+                .ForMember(p => p.Amount, opt => opt.MapFrom(psr => psr.Amount))
+                .ForMember(p => p.Detials, opt => opt.MapFrom(psr => psr.Detials))
+                .AfterMap((psr,p) =>
+                {
+                    p.Date = DateTime.Now;
+                });
+
+
         }
     }
 }

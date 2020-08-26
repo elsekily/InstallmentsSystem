@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using InstallmentsSystem.Core;
+using InstallmentsSystem.Entities.Models;
+using InstallmentsSystem.Entities.Resources;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace InstallmentsSystem.Controllers
 {
@@ -18,16 +21,16 @@ namespace InstallmentsSystem.Controllers
             this.unitOfWork = unitOfWork;
             this.repository = repository;
         }
-        /*
+   
         //[Authorize(Policy = Policies.Moderator)]
         [HttpPost]
-        public async Task<IActionResult> CreatePayment([FromBody] PaymentSaveResource installmentResource)
+        public async Task<IActionResult> CreatePayment([FromBody] PaymentSaveResource paymentResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var installment = mapper.Map<InstallmentSaveResource, Installment>(installmentResource);
-            repository.Add(installment);
+            var payment = mapper.Map<PaymentSaveResource, Payment>(paymentResource);
+            repository.Add(payment);
             await unitOfWork.CompleteAsync();
             /*
             author.User = userManager.GetUserAsync(HttpContext.User).Result;
@@ -36,7 +39,7 @@ namespace InstallmentsSystem.Controllers
             author = await repository.GetAuthor(author.ID);
             var result = mapper.Map<Author, AuthorWithBooksResource>(author);
             //return Created(nameof(GetAuthor), result);*/
-            //return Ok();
-        //}
+            return Ok();
+        }
     }
 }
