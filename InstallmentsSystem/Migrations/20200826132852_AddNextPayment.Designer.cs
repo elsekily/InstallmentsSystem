@@ -3,14 +3,16 @@ using System;
 using InstallmentsSystem.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InstallmentsSystem.Migrations
 {
     [DbContext(typeof(InstallmentsSystemDbContext))]
-    partial class InstallmentsSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200826132852_AddNextPayment")]
+    partial class AddNextPayment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

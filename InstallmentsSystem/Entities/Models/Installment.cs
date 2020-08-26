@@ -22,6 +22,7 @@ namespace InstallmentsSystem.Entities.Models
         public int Remaining { get; set; }
         [DisplayName("القسط")]
         public int MontlyPayment { get; set; }
+        public DateTime NextPayment { get; set; }
         public IList<InstallmentClients> Clients { get; set; }
         public IList<Payment> Payments { get; set; }
         public Installment()
