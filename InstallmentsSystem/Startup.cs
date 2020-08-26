@@ -64,6 +64,7 @@ namespace InstallmentsSystem
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IInstallmentRepository, InstallmentsRepository>();
             services.AddScoped<IPaymentRepository, PaymentsRepository>();
+            services.AddScoped<IClientRepository, ClientsRepository>();
 
             services.AddControllersWithViews();
         }

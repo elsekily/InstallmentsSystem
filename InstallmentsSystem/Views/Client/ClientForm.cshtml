@@ -1,0 +1,33 @@
+﻿@model InstallmentsSystem.Entities.Resources.ClientResource
+@if (Model.Id == 0)
+{
+    {
+        ViewBag.Title = "عميل جديد";
+    }
+    <h2>عميل جديد</h2>
+}
+else
+{
+    {
+        ViewBag.Title = "تعديل";
+    }
+    <h2>تعديل العميل</h2>
+}
+
+@using (Html.BeginForm("CreateClient", "Client"))
+{
+    <div class="form-group ">
+        <label>الأسم</label>
+        @Html.TextBoxFor(c => c.ClientName, new { @class = "form-control" })
+    </div>
+    <div class="form-group ">
+        <label>الرقم القومي</label>
+        @Html.TextBoxFor(c => c.ClientNationalId, new { @class = "form-control" })
+    </div>
+    <div class="form-group ">
+        <label>الموبايل</label>
+        @Html.TextBoxFor(c => c.MobileNumber, new { @class = "form-control" })
+    </div>
+    @Html.HiddenFor(x => x.Id)
+    <button type="submit" class="btn btn-primary">حفظ</button>
+}

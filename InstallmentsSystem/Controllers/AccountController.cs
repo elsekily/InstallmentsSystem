@@ -32,7 +32,7 @@ namespace InstallmentsSystem.Controllers
         }
         [Authorize(Policy = Policies.Admin)]
         [HttpPost("create/user/moderator")]
-        public IActionResult RegisterUser([FromBody] SaveUserResource userAccount)
+        public IActionResult RegisterUser([FromBody] UserSaveResource userAccount)
         {
             var user = new User()
             {
@@ -54,7 +54,7 @@ namespace InstallmentsSystem.Controllers
 
         [AllowAnonymous]
         [HttpPost("login")]
-        public IActionResult Login([FromBody] SaveUserResource userAccount)
+        public IActionResult Login([FromBody] UserSaveResource userAccount)
         {
             var userFromDb = userManager.FindByEmailAsync(userAccount.Email).Result;
             var result = signInManager.CheckPasswordSignInAsync(userFromDb, userAccount.Password, false).Result;

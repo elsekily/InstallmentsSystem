@@ -2,7 +2,7 @@
 
 namespace InstallmentsSystem.Entities.Resources
 {
-    public class SaveUserResource
+    public class UserSaveResource
     {
         [Required]
         public string Email { get; set; }
