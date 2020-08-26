@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InstallmentsSystem.Migrations
 {
     [DbContext(typeof(InstallmentsSystemDbContext))]
-    [Migration("20200822180024_IntialModel")]
+    [Migration("20200826201709_IntialModel")]
     partial class IntialModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,7 +62,13 @@ namespace InstallmentsSystem.Migrations
                     b.Property<int>("MontlyPayment")
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("NextPayment")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("PaymentScheme")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Remaining")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -76,10 +82,10 @@ namespace InstallmentsSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ClientId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("InstallmentId")
+                    b.Property<int>("InstallmentId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -95,6 +101,9 @@ namespace InstallmentsSystem.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Amount")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Date")
@@ -321,11 +330,15 @@ namespace InstallmentsSystem.Migrations
                 {
                     b.HasOne("InstallmentsSystem.Entities.Models.Client", "Client")
                         .WithMany("Installments")
-                        .HasForeignKey("ClientId");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("InstallmentsSystem.Entities.Models.Installment", "Installment")
                         .WithMany("Clients")
-                        .HasForeignKey("InstallmentId");
+                        .HasForeignKey("InstallmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("InstallmentsSystem.Entities.Models.Payment", b =>

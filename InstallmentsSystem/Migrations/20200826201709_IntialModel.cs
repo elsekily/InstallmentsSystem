@@ -75,7 +75,9 @@ namespace InstallmentsSystem.Migrations
                     PaymentScheme = table.Column<int>(nullable: false),
                     DevicePrice = table.Column<int>(nullable: false),
                     FirstInstallment = table.Column<int>(nullable: false),
-                    MontlyPayment = table.Column<int>(nullable: false)
+                    Remaining = table.Column<int>(nullable: false),
+                    MontlyPayment = table.Column<int>(nullable: false),
+                    NextPayment = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -208,8 +210,8 @@ namespace InstallmentsSystem.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    InstallmentId = table.Column<int>(nullable: true),
-                    ClientId = table.Column<int>(nullable: true)
+                    InstallmentId = table.Column<int>(nullable: false),
+                    ClientId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -219,13 +221,13 @@ namespace InstallmentsSystem.Migrations
                         column: x => x.ClientId,
                         principalTable: "Clients",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_InstallmentClients_installments_InstallmentId",
                         column: x => x.InstallmentId,
                         principalTable: "installments",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -234,6 +236,7 @@ namespace InstallmentsSystem.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    Amount = table.Column<int>(nullable: false),
                     MonthNumber = table.Column<int>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     Detials = table.Column<string>(nullable: true),

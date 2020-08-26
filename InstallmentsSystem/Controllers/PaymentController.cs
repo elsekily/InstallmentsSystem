@@ -18,6 +18,25 @@ namespace InstallmentsSystem.Controllers
             this.unitOfWork = unitOfWork;
             this.repository = repository;
         }
+        /*
+        //[Authorize(Policy = Policies.Moderator)]
+        [HttpPost]
+        public async Task<IActionResult> CreatePayment([FromBody] PaymentSaveResource installmentResource)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
 
+            var installment = mapper.Map<InstallmentSaveResource, Installment>(installmentResource);
+            repository.Add(installment);
+            await unitOfWork.CompleteAsync();
+            /*
+            author.User = userManager.GetUserAsync(HttpContext.User).Result;
+            
+
+            author = await repository.GetAuthor(author.ID);
+            var result = mapper.Map<Author, AuthorWithBooksResource>(author);
+            //return Created(nameof(GetAuthor), result);*/
+            //return Ok();
+        //}
     }
 }
