@@ -1,8 +1,10 @@
 using System.Text;
 using AutoMapper;
+using InstallmentsSystem.Core;
 using InstallmentsSystem.Entities.Models;
 using InstallmentsSystem.Entities.Resources;
 using InstallmentsSystem.Persistence;
+using InstallmentsSystem.Persistence.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -58,6 +60,9 @@ namespace InstallmentsSystem
                .AddEntityFrameworkStores<InstallmentsSystemDbContext>();
 
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IInstallmentRepository, InstallmentsRepository>();
 
             services.AddControllersWithViews();
         }

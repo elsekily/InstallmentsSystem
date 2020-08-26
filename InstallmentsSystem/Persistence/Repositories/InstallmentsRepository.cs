@@ -32,7 +32,6 @@ namespace InstallmentsSystem.Persistence.Repositories
 
         public Task<IEnumerable<Installment>> GetLateInstallments()
         {
-            //return context.installments.Where(d=>d.InstallDate.day)
             throw new NotImplementedException();
         }
 

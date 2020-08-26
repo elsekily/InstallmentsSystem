@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using AutoMapper;
 using InstallmentsSystem.Core;
 using InstallmentsSystem.Entities.Models;
@@ -23,7 +24,7 @@ namespace InstallmentsSystem.Controllers
 
         public IActionResult Index()
         {
-            var lateInstallments = repository.GetLateInstallments();
+            var lateInstallments = new List<Installment>();//repository.GetLateInstallments();
             return View(lateInstallments);
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
