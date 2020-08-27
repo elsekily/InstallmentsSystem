@@ -15,34 +15,64 @@ namespace InstallmentsSystem.Mapping
             //Domain to API
 
             CreateMap<Client, ClientResource>();
+            CreateMap<Client, ClientResourceWithInstallments>()
+                .ForMember(cri => cri.Installments, opt => opt.MapFrom(c =>
+                  c.Installments.Select(ci => new InstallmentResourece
+                  {
+                      Id = ci.Id,
+                      StartDate = ci.StartDate,
+                      DeviceName = ci.DeviceName,
+                      DeviceActualPrice = ci.DeviceActualPrice,
+                      PaymentScheme = ci.PaymentScheme,
+                      DevicePrice = ci.DevicePrice,
+                      FirstInstallment = ci.FirstInstallment,
+                      Remaining = ci.Remaining,
+                      MontlyPayment = ci.MontlyPayment,
+                      DayofPayment = ci.DayofPayment,
+                      NextPayment = ci.NextPayment,
+                      ClientId = ci.ClientId
+                  })));  
 
-            CreateMap<Client, ClientResourceWithInstallments>();
+            CreateMap<Installment, InstallmentResourece>();
+            CreateMap<Installment, InstallmentResoureceWithPayments>()
+                .ForMember(irp=>irp.ClientId,opt=>opt.MapFrom(i=>i.Client.Id))
+                .ForMember(irp => irp.Payments, opt => opt.MapFrom(
+                    i=>i.Payments.Select(ip=> new PaymentResource 
+                    {
+                        Id = ip.Id,
+                        Amount = ip.Amount,
+                        MonthNumber = ip.MonthNumber,
+                        Date = ip.Date,
+                        Detials = ip.Detials,
+                        InstallmentId = ip.InstallmentId
+                    })));
 
 
-            /*
             //API to Domain
+
+            CreateMap<ClientSaveResource, Client>()
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Installments, opt => opt.Ignore());
 
             CreateMap<InstallmentSaveResource, Installment>()
                 .ForMember(i => i.Id, opt => opt.Ignore())
-                .ForMember(i => i.InstallDate, opt => opt.Ignore())
+                .ForMember(i => i.StartDate, opt => opt.Ignore())
                 .ForMember(i => i.NextPayment, opt => opt.Ignore())
                 .ForMember(i => i.Payments, opt => opt.Ignore())
-                .ForMember(i => i.Clients, opt => opt.Ignore())
-                .ForMember(i => i.PaymentScheme, opt => opt.MapFrom(isr => isr.PaymentScheme))
-                .ForMember(i => i.FirstInstallment, opt => opt.MapFrom(isr => isr.FirstInstallment))
-                .ForMember(i => i.DeviceName, opt => opt.MapFrom(isr => isr.DeviceName))
-                .ForMember(i => i.DeviceActualPrice, opt => opt.MapFrom(isr => isr.DeviceActualPrice))
-                .ForMember(i => i.DevicePrice, opt => opt.MapFrom(isr => isr.DevicePrice))
-                .ForMember(i => i.MontlyPayment, opt => opt.MapFrom(isr => isr.MontlyPayment))
                 .ForMember(i => i.Remaining, opt => opt.MapFrom(isr => isr.DevicePrice - isr.FirstInstallment))
-                .ForMember(i => i.MontlyPayment, opt => opt.MapFrom(isr => isr.MontlyPayment))
                 .AfterMap((isr, i) =>
                 {
-                    i.InstallDate = DateTime.Now;
-                    i.NextPayment = DateTime.Now.AddMonths(1);
-                    i.Clients.Add(new InstallmentClients() { ClientId = isr.ClientId });
+                    i.StartDate = DateTime.Now;
+                    var next = DateTime.Now.AddMonths(1);
+                    
+                    if(DateTime.DaysInMonth(next.Year,next.Month)<i.DayofPayment)
+                        i.NextPayment = new DateTime(next.Year, next.AddMonths(1).Month, 1);
+                        
+                    else
+                        i.NextPayment = new DateTime(next.Year,next.Month,i.DayofPayment);
                 });
 
+            /*
             CreateMap<PaymentSaveResource, Payment>()
                 .ForMember(p => p.Id, opt => opt.Ignore())
                 .ForMember(p => p.Date, opt => opt.Ignore())
@@ -54,10 +84,6 @@ namespace InstallmentsSystem.Mapping
                     p.Date = DateTime.Now;
                 });
             */
-            CreateMap<ClientSaveResource, Client>()
-                .ForMember(c => c.Id, opt => opt.Ignore())
-                .ForMember(c => c.Installments, opt => opt.Ignore());
-            
         }
     }
 }

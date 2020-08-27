@@ -33,7 +33,7 @@ namespace InstallmentsSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetClients(int id)
+        public async Task<IActionResult> GetClients()
         {
             var clients = await repository.GetClients();
             return Ok(mapper.Map<IEnumerable<Client>, IEnumerable<ClientResource>>(clients));

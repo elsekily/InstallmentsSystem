@@ -199,7 +199,7 @@ namespace InstallmentsSystem.Migrations
                     MontlyPayment = table.Column<int>(nullable: false),
                     DayofPayment = table.Column<int>(nullable: false),
                     NextPayment = table.Column<DateTime>(nullable: false),
-                    ClientId = table.Column<int>(nullable: true)
+                    ClientId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -209,7 +209,7 @@ namespace InstallmentsSystem.Migrations
                         column: x => x.ClientId,
                         principalTable: "Clients",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -222,7 +222,7 @@ namespace InstallmentsSystem.Migrations
                     MonthNumber = table.Column<int>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     Detials = table.Column<string>(nullable: true),
-                    InstallmentId = table.Column<int>(nullable: true)
+                    InstallmentId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -232,7 +232,7 @@ namespace InstallmentsSystem.Migrations
                         column: x => x.InstallmentId,
                         principalTable: "installments",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

@@ -8,7 +8,7 @@ namespace InstallmentsSystem.Entities.Models
         public string Name { get; set; }
         public string NationalId { get; set; }
         public string MobileNumber { get; set; }
-        public IList<Installment> Installments{ get; set; }
+        public virtual ICollection<Installment> Installments{ get; set; }
         public Client()
         {
             Installments = new List<Installment>();

@@ -9,5 +9,7 @@ namespace InstallmentsSystem.Entities.Models
         public int MonthNumber { get; set; }
         public DateTime Date { get; set; }
         public string Detials { get; set; }
+        public int InstallmentId { get; set; }
+        public Installment Installment { get; set; }
     }
 }

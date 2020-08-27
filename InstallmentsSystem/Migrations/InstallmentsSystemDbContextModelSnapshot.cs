@@ -42,7 +42,7 @@ namespace InstallmentsSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ClientId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("DayofPayment")
@@ -97,7 +97,7 @@ namespace InstallmentsSystem.Migrations
                     b.Property<string>("Detials")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("InstallmentId")
+                    b.Property<int>("InstallmentId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("MonthNumber")
@@ -313,16 +313,20 @@ namespace InstallmentsSystem.Migrations
 
             modelBuilder.Entity("InstallmentsSystem.Entities.Models.Installment", b =>
                 {
-                    b.HasOne("InstallmentsSystem.Entities.Models.Client", null)
+                    b.HasOne("InstallmentsSystem.Entities.Models.Client", "Client")
                         .WithMany("Installments")
-                        .HasForeignKey("ClientId");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("InstallmentsSystem.Entities.Models.Payment", b =>
                 {
-                    b.HasOne("InstallmentsSystem.Entities.Models.Installment", null)
+                    b.HasOne("InstallmentsSystem.Entities.Models.Installment", "Installment")
                         .WithMany("Payments")
-                        .HasForeignKey("InstallmentId");
+                        .HasForeignKey("InstallmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("InstallmentsSystem.Entities.Models.UserRole", b =>

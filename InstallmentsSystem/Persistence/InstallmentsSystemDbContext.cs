@@ -16,5 +16,11 @@ namespace InstallmentsSystem.Persistence
         {
             
         }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<Installment>().HasOne(i => i.Client).WithMany(c => c.Installments);
+            builder.Entity<Payment>().HasOne(p => p.Installment).WithMany(i => i.Payments);
+        }
     }
 }

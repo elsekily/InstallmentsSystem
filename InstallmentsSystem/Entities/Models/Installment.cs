@@ -21,6 +21,8 @@ namespace InstallmentsSystem.Entities.Models
         [Range(1,31)]
         public int DayofPayment { get; set; }
         public DateTime NextPayment { get; set; }
+        public int ClientId { get; set; }
+        public Client Client { get; set; }
         public IList<Payment> Payments { get; set; }
         public Installment()
         {
