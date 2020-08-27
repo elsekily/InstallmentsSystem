@@ -2,12 +2,14 @@
 using InstallmentsSystem.Core;
 using InstallmentsSystem.Entities.Models;
 using InstallmentsSystem.Entities.Resources;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace InstallmentsSystem.Controllers
 {
+    //[Authorize(Policy = Policies.Moderator)]
     [Route("api/[controller]")]
     public class ClientController : Controller
     {
@@ -22,22 +24,23 @@ namespace InstallmentsSystem.Controllers
             this.unitOfWork = unitOfWork;
             this.repository = repository;
         }
-        
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetClient(int id)
         {
             var client = await repository.GetClient(id);
-            return Ok(mapper.Map<Client, ClientResource>(client));
-        }
-        [HttpGet("create")]
-        public ActionResult Create()
-        {
-            return View("ClientForm", new ClientResource());
+            return Ok(mapper.Map<Client, ClientResourceWithInstallments>(client));
         }
 
-        //[Authorize(Policy = Policies.Moderator)]
+        [HttpGet]
+        public async Task<IActionResult> GetClients(int id)
+        {
+            var clients = await repository.GetClients();
+            return Ok(mapper.Map<IEnumerable<Client>, IEnumerable<ClientResource>>(clients));
+        }
+
         [HttpPost]
-        public async Task<IActionResult> CreateClient(ClientSaveResource clientResource)
+        public async Task<IActionResult> CreateClient([FromBody] ClientSaveResource clientResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -47,39 +50,41 @@ namespace InstallmentsSystem.Controllers
 
             await unitOfWork.CompleteAsync();
 
-            return RedirectToAction("Index");
+            client = await repository.GetClient(client.Id);
+            var result = mapper.Map<Client, ClientResource>(client);
+            return Created(nameof(GetClient), result);
         }
-        /*
-        [Authorize(Policy = Policies.Moderator)]
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAuthor(int id, [FromBody] AuthorSaveResource authorResource)
+        public async Task<IActionResult> UpdateClient(int id, [FromBody] ClientSaveResource clientResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var author = await repository.GetAuthor(id);
-            mapper.Map<AuthorSaveResource, Author>(authorResource, author);
+            var client = await repository.GetClient(id);
+            mapper.Map<ClientSaveResource, Client>(clientResource, client);
 
             await unitOfWork.CompleteAsync();
 
-            author = await repository.GetAuthor(author.ID);
-            var result = mapper.Map<Author, AuthorWithBooksResource>(author);
+            client = await repository.GetClient(client.Id);
+            var result = mapper.Map<Client, ClientResource>(client);
             return Accepted(result);
         }
-        [Authorize(Policy = Policies.Moderator)]
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAuthor(int id)
-        {
-            var author = await repository.GetAuthor(id);
 
-            if (author == null)
+        [Authorize(Policy = Policies.Admin)]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteClient(int id)
+        {
+            var client = await repository.GetClient(id);
+
+            if (client == null)
                 return NotFound();
 
-            repository.Remove(author);
+            repository.Remove(client);
             await unitOfWork.CompleteAsync();
 
             return Accepted();
-        }*/
+        }
     }
 }
 

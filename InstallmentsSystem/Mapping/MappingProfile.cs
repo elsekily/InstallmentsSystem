@@ -11,15 +11,15 @@ namespace InstallmentsSystem.Mapping
     public class MappingProfile : Profile
     {
         public MappingProfile()
-        {/*
+        {
             //Domain to API
 
-            CreateMap<Client, ClientResource>()
-                .ForMember(cr => cr.Id, opt => opt.MapFrom(c => c.Id))
-                .ForMember(cr => cr.ClientNationalId, opt => opt.MapFrom(c => c.ClientNationalId))
-                .ForMember(cr => cr.MobileNumber, opt => opt.MapFrom(c => c.MobileNumber))
-                .ForMember(cr => cr.ClientName, opt => opt.MapFrom(c => c.ClientName));
+            CreateMap<Client, ClientResource>();
 
+            CreateMap<Client, ClientResourceWithInstallments>();
+
+
+            /*
             //API to Domain
 
             CreateMap<InstallmentSaveResource, Installment>()
@@ -53,14 +53,11 @@ namespace InstallmentsSystem.Mapping
                 {
                     p.Date = DateTime.Now;
                 });
-
+            */
             CreateMap<ClientSaveResource, Client>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
-                .ForMember(c => c.Installments, opt => opt.Ignore())
-                .ForMember(c => c.ClientName, opt => opt.MapFrom(csr => csr.ClientName))
-                .ForMember(c => c.ClientNationalId, opt => opt.MapFrom(csr => csr.ClientNationalId))
-                .ForMember(c => c.MobileNumber, opt => opt.MapFrom(csr => csr.MobileNumber));
-            */
+                .ForMember(c => c.Installments, opt => opt.Ignore());
+            
         }
     }
 }

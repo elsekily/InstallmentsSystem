@@ -21,11 +21,10 @@ namespace InstallmentsSystem.Persistence.Repositories
             context.Clients.Add(client);
         }
 
-        public Task<Client> GetClient(int id)
+        public async Task<Client> GetClient(int id)
         {
-            throw new NotImplementedException();/*
             return await context.Clients.Where(c => c.Id == id)
-                .Include(c=>c.Installments).ThenInclude(cp=>cp.Installment).SingleOrDefaultAsync();*/
+                .Include(c=>c.Installments).SingleOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Client>> GetClients()
@@ -35,7 +34,7 @@ namespace InstallmentsSystem.Persistence.Repositories
 
         public void Remove(Client client)
         {
-            throw new NotImplementedException();
+            context.Remove(client);
         }
     }
 }
