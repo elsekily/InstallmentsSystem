@@ -11,7 +11,7 @@ namespace InstallmentsSystem.Mapping
     public class MappingProfile : Profile
     {
         public MappingProfile()
-        {
+        {/*
             //Domain to API
 
             CreateMap<Client, ClientResource>()
@@ -60,7 +60,7 @@ namespace InstallmentsSystem.Mapping
                 .ForMember(c => c.ClientName, opt => opt.MapFrom(csr => csr.ClientName))
                 .ForMember(c => c.ClientNationalId, opt => opt.MapFrom(csr => csr.ClientNationalId))
                 .ForMember(c => c.MobileNumber, opt => opt.MapFrom(csr => csr.MobileNumber));
-
+            */
         }
     }
 }

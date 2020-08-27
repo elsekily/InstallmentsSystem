@@ -5,13 +5,13 @@ namespace InstallmentsSystem.Entities.Models
     public class Client
     {
         public int Id { get; set; }
-        public string ClientName { get; set; }
-        public string ClientNationalId { get; set; }
+        public string Name { get; set; }
+        public string NationalId { get; set; }
         public string MobileNumber { get; set; }
-        public IList<InstallmentClients> Installments{ get; set; }
+        public IList<Installment> Installments{ get; set; }
         public Client()
         {
-            Installments = new List<InstallmentClients>();
+            Installments = new List<Installment>();
         }
     }
 }

@@ -22,15 +22,9 @@ namespace InstallmentsSystem.Controllers
             this.unitOfWork = unitOfWork;
             this.repository = repository;
         }
-        [HttpGet]
-        public async Task<IActionResult> Index()
-        {
-            var clients = await repository.GetClients();
-            var result = mapper.Map<IEnumerable<Client>, IEnumerable<ClientResource>>(clients);
-            return View(result);
-        }
+        
         [HttpGet("{id}")]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> GetClient(int id)
         {
             var client = await repository.GetClient(id);
             return Ok(mapper.Map<Client, ClientResource>(client));
@@ -43,7 +37,7 @@ namespace InstallmentsSystem.Controllers
 
         //[Authorize(Policy = Policies.Moderator)]
         [HttpPost]
-        public async Task<IActionResult> CreateClient([FromBody] ClientSaveResource clientResource)
+        public async Task<IActionResult> CreateClient(ClientSaveResource clientResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest();

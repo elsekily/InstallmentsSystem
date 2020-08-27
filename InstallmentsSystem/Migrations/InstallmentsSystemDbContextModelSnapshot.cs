@@ -22,13 +22,13 @@ namespace InstallmentsSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("ClientName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ClientNationalId")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("MobileNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NationalId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -40,6 +40,12 @@ namespace InstallmentsSystem.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ClientId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DayofPayment")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("DeviceActualPrice")
@@ -54,9 +60,6 @@ namespace InstallmentsSystem.Migrations
                     b.Property<int>("FirstInstallment")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("InstallDate")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("MontlyPayment")
                         .HasColumnType("INTEGER");
 
@@ -69,30 +72,14 @@ namespace InstallmentsSystem.Migrations
                     b.Property<int>("Remaining")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("installments");
-                });
-
-            modelBuilder.Entity("InstallmentsSystem.Entities.Models.InstallmentClients", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ClientId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("InstallmentId")
-                        .HasColumnType("INTEGER");
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
 
-                    b.HasIndex("InstallmentId");
-
-                    b.ToTable("InstallmentClients");
+                    b.ToTable("installments");
                 });
 
             modelBuilder.Entity("InstallmentsSystem.Entities.Models.Payment", b =>
@@ -324,19 +311,11 @@ namespace InstallmentsSystem.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("InstallmentsSystem.Entities.Models.InstallmentClients", b =>
+            modelBuilder.Entity("InstallmentsSystem.Entities.Models.Installment", b =>
                 {
-                    b.HasOne("InstallmentsSystem.Entities.Models.Client", "Client")
+                    b.HasOne("InstallmentsSystem.Entities.Models.Client", null)
                         .WithMany("Installments")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("InstallmentsSystem.Entities.Models.Installment", "Installment")
-                        .WithMany("Clients")
-                        .HasForeignKey("InstallmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClientId");
                 });
 
             modelBuilder.Entity("InstallmentsSystem.Entities.Models.Payment", b =>

@@ -20,20 +20,25 @@ namespace InstallmentsSystem.Persistence.Repositories
         {
             await context.installments.AddAsync(installment);
         }
-        public async Task<Installment> GetInstallment(int id)
+        public Task<Installment> GetInstallment(int id)
         {
+            throw new NotImplementedException();/*
             return await context.installments.Where(i => i.Id == id).Include(i => i.Payments)
-                .Include(i => i.Clients).ThenInclude(ic => ic.Client).SingleOrDefaultAsync();
+                .Include(i => i.Clients).ThenInclude(ic => ic.Client).SingleOrDefaultAsync();*/
         }
         public async Task<IEnumerable<Installment>> GetInstallments()
         {
+            throw new NotImplementedException();
+            /*
             return await context.installments
-                .Include(i => i.Clients).ThenInclude(ic => ic.Client).ToListAsync();
+                .Include(i => i.Clients).ThenInclude(ic => ic.Client).ToListAsync();*/
         }
-        public async Task<IEnumerable<Installment>> GetLateInstallments()
+        public Task<IEnumerable<Installment>> GetLateInstallments()
         {
+            throw new NotImplementedException();
+            /*
             return await context.installments.Where(i => i.NextPayment > DateTime.Now)
-                .Include(i => i.Clients).ThenInclude(ic => ic.Client).ToListAsync();
+                .Include(i => i.Clients).ThenInclude(ic => ic.Client).ToListAsync();*/
         }
         public void Remove(Installment installment)
         {

@@ -54,34 +54,13 @@ namespace InstallmentsSystem.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ClientName = table.Column<string>(nullable: true),
-                    ClientNationalId = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    NationalId = table.Column<string>(nullable: true),
                     MobileNumber = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Clients", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "installments",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    InstallDate = table.Column<DateTime>(nullable: false),
-                    DeviceName = table.Column<string>(nullable: true),
-                    DeviceActualPrice = table.Column<int>(nullable: false),
-                    PaymentScheme = table.Column<int>(nullable: false),
-                    DevicePrice = table.Column<int>(nullable: false),
-                    FirstInstallment = table.Column<int>(nullable: false),
-                    Remaining = table.Column<int>(nullable: false),
-                    MontlyPayment = table.Column<int>(nullable: false),
-                    NextPayment = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_installments", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -205,29 +184,32 @@ namespace InstallmentsSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InstallmentClients",
+                name: "installments",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    InstallmentId = table.Column<int>(nullable: false),
-                    ClientId = table.Column<int>(nullable: false)
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    DeviceName = table.Column<string>(nullable: true),
+                    DeviceActualPrice = table.Column<int>(nullable: false),
+                    PaymentScheme = table.Column<int>(nullable: false),
+                    DevicePrice = table.Column<int>(nullable: false),
+                    FirstInstallment = table.Column<int>(nullable: false),
+                    Remaining = table.Column<int>(nullable: false),
+                    MontlyPayment = table.Column<int>(nullable: false),
+                    DayofPayment = table.Column<int>(nullable: false),
+                    NextPayment = table.Column<DateTime>(nullable: false),
+                    ClientId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InstallmentClients", x => x.Id);
+                    table.PrimaryKey("PK_installments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_InstallmentClients_Clients_ClientId",
+                        name: "FK_installments_Clients_ClientId",
                         column: x => x.ClientId,
                         principalTable: "Clients",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_InstallmentClients_installments_InstallmentId",
-                        column: x => x.InstallmentId,
-                        principalTable: "installments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -301,14 +283,9 @@ namespace InstallmentsSystem.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_InstallmentClients_ClientId",
-                table: "InstallmentClients",
+                name: "IX_installments_ClientId",
+                table: "installments",
                 column: "ClientId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_InstallmentClients_InstallmentId",
-                table: "InstallmentClients",
-                column: "InstallmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Payments_InstallmentId",
@@ -334,9 +311,6 @@ namespace InstallmentsSystem.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "InstallmentClients");
-
-            migrationBuilder.DropTable(
                 name: "Payments");
 
             migrationBuilder.DropTable(
@@ -346,10 +320,10 @@ namespace InstallmentsSystem.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Clients");
+                name: "installments");
 
             migrationBuilder.DropTable(
-                name: "installments");
+                name: "Clients");
         }
     }
 }

@@ -14,6 +14,7 @@ namespace InstallmentsSystem.Entities.Resources
         public int DevicePrice { get; set; }
         public int FirstInstallment { get; set; }
         public int MontlyPayment { get; set; }
+        public int DayofPayment { get; set; }
         public int ClientId { get; set; }
     }
 }

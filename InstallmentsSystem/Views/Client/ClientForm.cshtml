@@ -14,8 +14,7 @@ else
     <h2>تعديل العميل</h2>
 }
 
-@using (Html.BeginForm("CreateClient", "Client"))
-{
+<form asp-controller="Client" asp-action="CreateClient"  method="post">
     <div class="form-group ">
         <label>الأسم</label>
         @Html.TextBoxFor(c => c.ClientName, new { @class = "form-control" })
@@ -30,4 +29,4 @@ else
     </div>
     @Html.HiddenFor(x => x.Id)
     <button type="submit" class="btn btn-primary">حفظ</button>
-}
+</form>

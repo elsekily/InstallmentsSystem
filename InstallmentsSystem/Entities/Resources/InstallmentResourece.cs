@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Collections;
 
-namespace InstallmentsSystem.Entities.Models
+namespace InstallmentsSystem.Entities.Resources
 {
-    public class Installment
+    public class InstallmentResourece
     {
         public int Id { get; set; }
         public DateTime StartDate { get; set; }
@@ -18,13 +14,8 @@ namespace InstallmentsSystem.Entities.Models
         public int FirstInstallment { get; set; }
         public int Remaining { get; set; }
         public int MontlyPayment { get; set; }
-        [Range(1,31)]
         public int DayofPayment { get; set; }
         public DateTime NextPayment { get; set; }
-        public IList<Payment> Payments { get; set; }
-        public Installment()
-        {
-            Payments = new List<Payment>();
-        }
+        public int ClientId { get; set; }
     }
 }

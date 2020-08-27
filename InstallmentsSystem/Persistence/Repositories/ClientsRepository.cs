@@ -21,10 +21,11 @@ namespace InstallmentsSystem.Persistence.Repositories
             context.Clients.Add(client);
         }
 
-        public async Task<Client> GetClient(int id)
+        public Task<Client> GetClient(int id)
         {
+            throw new NotImplementedException();/*
             return await context.Clients.Where(c => c.Id == id)
-                .Include(c=>c.Installments).ThenInclude(cp=>cp.Installment).SingleOrDefaultAsync();
+                .Include(c=>c.Installments).ThenInclude(cp=>cp.Installment).SingleOrDefaultAsync();*/
         }
 
         public async Task<IEnumerable<Client>> GetClients()
