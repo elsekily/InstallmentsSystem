@@ -1,4 +1,4 @@
-﻿{
+﻿  {
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -11,6 +11,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": false,
+      "launchUrl": "https://localhost:44330;https://localhost:44330/home.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
