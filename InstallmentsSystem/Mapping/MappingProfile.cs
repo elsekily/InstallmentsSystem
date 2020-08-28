@@ -72,18 +72,15 @@ namespace InstallmentsSystem.Mapping
                         i.NextPayment = new DateTime(next.Year,next.Month,i.DayofPayment);
                 });
 
-            /*
+            
             CreateMap<PaymentSaveResource, Payment>()
                 .ForMember(p => p.Id, opt => opt.Ignore())
                 .ForMember(p => p.Date, opt => opt.Ignore())
                 .ForMember(p => p.MonthNumber, opt => opt.Ignore())
-                .ForMember(p => p.Amount, opt => opt.MapFrom(psr => psr.Amount))
-                .ForMember(p => p.Detials, opt => opt.MapFrom(psr => psr.Detials))
                 .AfterMap((psr,p) =>
                 {
                     p.Date = DateTime.Now;
                 });
-            */
         }
     }
 }

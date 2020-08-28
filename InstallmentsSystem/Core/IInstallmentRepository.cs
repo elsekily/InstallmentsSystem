@@ -8,6 +8,7 @@ namespace InstallmentsSystem.Core
 {
     public interface IInstallmentRepository
     {
+        Task<IEnumerable<Installment>> GetClientInstallments(int clientId);
         Task<IEnumerable<Installment>> GetInstallments();
         Task<IEnumerable<Installment>> GetLateInstallments();
         Task<Installment> GetInstallment(int id);

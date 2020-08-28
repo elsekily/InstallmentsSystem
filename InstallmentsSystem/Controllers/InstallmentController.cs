@@ -39,6 +39,13 @@ namespace InstallmentsSystem.Controllers
             return Ok(mapper.Map<IEnumerable<Installment>, IEnumerable<InstallmentResourece>>(installments));
         }
 
+        [HttpGet("{clientId}")]
+        public async Task<IActionResult> GetClientInstallments(int clientId)
+        {
+            var installments = await repository.GetClientInstallments(clientId);
+            return Ok(mapper.Map<IEnumerable<Installment>, IEnumerable<InstallmentResourece>>(installments));
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateInstallment([FromBody] InstallmentSaveResource installmentResource)
         {
