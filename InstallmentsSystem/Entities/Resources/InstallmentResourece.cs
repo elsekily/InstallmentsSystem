@@ -17,5 +17,6 @@ namespace InstallmentsSystem.Entities.Resources
         public int DayofPayment { get; set; }
         public DateTime NextPayment { get; set; }
         public int ClientId { get; set; }
+        public string ClientName { get; set; }
     }
 }

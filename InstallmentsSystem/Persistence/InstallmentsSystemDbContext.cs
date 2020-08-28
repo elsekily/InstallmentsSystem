@@ -9,7 +9,7 @@ namespace InstallmentsSystem.Persistence
         UserRole, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public DbSet<Client> Clients { get; set; }
-        public DbSet<Installment> installments { get; set; }
+        public DbSet<Installment> Installments { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public InstallmentsSystemDbContext(DbContextOptions<InstallmentsSystemDbContext> options)
         : base(options)

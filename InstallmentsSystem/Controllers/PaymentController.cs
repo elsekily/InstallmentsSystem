@@ -4,6 +4,7 @@ using InstallmentsSystem.Entities.Models;
 using InstallmentsSystem.Entities.Resources;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace InstallmentsSystem.Controllers
@@ -15,13 +16,15 @@ namespace InstallmentsSystem.Controllers
         private readonly IMapper mapper;
         private readonly IUnitOfWork unitOfWork;
         private readonly IPaymentRepository repository;
+        private readonly IInstallmentRepository installmentRepository;
 
         public PaymentController(IMapper mapper, IUnitOfWork unitOfWork,
-            IPaymentRepository repository)
+            IPaymentRepository repository, IInstallmentRepository installmentRepository)
         {
             this.mapper = mapper;
             this.unitOfWork = unitOfWork;
             this.repository = repository;
+            this.installmentRepository = installmentRepository;
         }
 
         [HttpPost]
@@ -34,38 +37,21 @@ namespace InstallmentsSystem.Controllers
             repository.Add(payment);
             await unitOfWork.CompleteAsync();
 
-            payment = await repository.GetPayment(payment.Id);
-            var result = mapper.Map<Payment, PaymentResource>(payment);
-            return Created(nameof(UpdatePayment), result);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePayment(int id,
-            [FromBody] PaymentSaveResource paymentResource)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest();
-
-            var payment = await repository.GetPayment(id);
-            mapper.Map<PaymentSaveResource, Payment>(paymentResource, payment);
-
-            await unitOfWork.CompleteAsync();
-
-            //payment = await repository.GetInstallment(installment.Id);
-            //var result = mapper.Map<Installment, InstallmentResoureceWithPayments>(installment);
-            return Accepted();// result);
+            var installment = await installmentRepository.GetInstallment(payment.InstallmentId);
+            var result = mapper.Map<Installment, InstallmentResourece>(installment);
+            return Created(nameof(CreateInstallment), result);
         }
 
         [Authorize(Policy = Policies.Admin)]
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePayment(int id)
+        [HttpDelete("{installmentId}")]
+        public async Task<IActionResult> DeleteLastPayment(int installmentId)
         {
-            var payment = await repository.GetPayment(id);
+            var installment = await installmentRepository.GetInstallment(installmentId);
 
-            if (payment == null)
+            if (installment.Payments.Count == 0)
                 return NotFound();
 
-            repository.Remove(payment);
+            repository.Remove(installment.Payments.Last());
             await unitOfWork.CompleteAsync();
 
             return Accepted();

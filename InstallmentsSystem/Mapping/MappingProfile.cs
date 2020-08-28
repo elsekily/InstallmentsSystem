@@ -36,6 +36,7 @@ namespace InstallmentsSystem.Mapping
             CreateMap<Installment, InstallmentResourece>();
             CreateMap<Installment, InstallmentResoureceWithPayments>()
                 .ForMember(irp=>irp.ClientId,opt=>opt.MapFrom(i=>i.Client.Id))
+                .ForMember(irp=>irp.ClientName,opt=>opt.MapFrom(i=>i.Client.Name))
                 .ForMember(irp => irp.Payments, opt => opt.MapFrom(
                     i=>i.Payments.Select(ip=> new PaymentResource 
                     {
@@ -46,6 +47,8 @@ namespace InstallmentsSystem.Mapping
                         Detials = ip.Detials,
                         InstallmentId = ip.InstallmentId
                     })));
+
+            CreateMap<Payment, PaymentResource>();
 
 
             //API to Domain
@@ -63,13 +66,7 @@ namespace InstallmentsSystem.Mapping
                 .AfterMap((isr, i) =>
                 {
                     i.StartDate = DateTime.Now;
-                    var next = DateTime.Now.AddMonths(1);
-                    
-                    if(DateTime.DaysInMonth(next.Year,next.Month)<i.DayofPayment)
-                        i.NextPayment = new DateTime(next.Year, next.AddMonths(1).Month, 1);
-                        
-                    else
-                        i.NextPayment = new DateTime(next.Year,next.Month,i.DayofPayment);
+                    i.NextPayment = SetNextPayment.Date(i.DayofPayment, DateTime.Now);
                 });
 
             

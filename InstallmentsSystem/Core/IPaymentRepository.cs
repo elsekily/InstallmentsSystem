@@ -6,7 +6,6 @@ namespace InstallmentsSystem.Core
 {
     public interface IPaymentRepository
     {
-        Task<Payment> GetPayment(int id);
         void Add(Payment payment);
         void Remove(Payment payment);
     }

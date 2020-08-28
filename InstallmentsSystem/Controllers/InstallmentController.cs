@@ -39,7 +39,7 @@ namespace InstallmentsSystem.Controllers
             return Ok(mapper.Map<IEnumerable<Installment>, IEnumerable<InstallmentResourece>>(installments));
         }
 
-        [HttpGet("{clientId}")]
+        [HttpGet("client/{clientId}")]
         public async Task<IActionResult> GetClientInstallments(int clientId)
         {
             var installments = await repository.GetClientInstallments(clientId);
@@ -70,6 +70,23 @@ namespace InstallmentsSystem.Controllers
 
             var installment = await repository.GetInstallment(id);
             mapper.Map<InstallmentSaveResource, Installment>(InstallmentResource, installment);
+
+            await unitOfWork.CompleteAsync();
+
+            installment = await repository.GetInstallment(installment.Id);
+            var result = mapper.Map<Installment, InstallmentResoureceWithPayments>(installment);
+            return Accepted(result);
+        }
+
+        [HttpPut("nextpayment/{id}")]
+        public async Task<IActionResult> UpdateNextPayemtofInstallment(int id,
+            [FromBody] IdDatePair idDatePair)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var installment = await repository.GetInstallment(id);
+            installment.NextPayment = idDatePair.Date;
 
             await unitOfWork.CompleteAsync();
 

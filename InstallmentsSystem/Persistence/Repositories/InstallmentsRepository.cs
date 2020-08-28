@@ -18,33 +18,33 @@ namespace InstallmentsSystem.Persistence.Repositories
         }
         public async void Add(Installment installment)
         {
-            await context.installments.AddAsync(installment);
+            await context.Installments.AddAsync(installment);
         }
 
         public async Task<IEnumerable<Installment>> GetClientInstallments(int clientId)
         {
-            return await context.installments.Where(i => i.ClientId == clientId)
+            return await context.Installments.Where(i => i.ClientId == clientId)
                 .Include(i => i.Client).ToListAsync();
         }
 
         public async Task<Installment> GetInstallment(int id)
         {
-            return await context.installments.Where(i => i.Id == id).Include(i => i.Payments)
+            return await context.Installments.Where(i => i.Id == id).Include(i => i.Payments)
                 .Include(i => i.Client).SingleOrDefaultAsync();
         }
         public async Task<IEnumerable<Installment>> GetInstallments()
         {
-            return await context.installments
+            return await context.Installments
                 .Include(i => i.Client).ToListAsync();
         }
         public async Task<IEnumerable<Installment>> GetLateInstallments()
         {
-            return await context.installments.Where(i => i.NextPayment > DateTime.Now)
+            return await context.Installments.Where(i => i.NextPayment > DateTime.Now)
                 .Include(i => i.Client).ToListAsync();
         }
         public void Remove(Installment installment)
         {
-            context.installments.Remove(installment);
+            context.Installments.Remove(installment);
         }
     }
 }

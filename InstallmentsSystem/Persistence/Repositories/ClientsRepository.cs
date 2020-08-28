@@ -23,9 +23,8 @@ namespace InstallmentsSystem.Persistence.Repositories
 
         public async Task<Client> GetClient(int id)
         {
-            var client = await context.Clients.Where(c => c.Id == id).SingleOrDefaultAsync();
-            context.Entry(client).Collection(c => c.Installments).Load();
-            return client;
+            return await context.Clients.Where(c => c.Id == id)
+                .Include(c=>c.Installments).SingleOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Client>> GetClients()
