@@ -54,7 +54,7 @@ namespace InstallmentsSystem
                 });
 
             services.AddDbContext<InstallmentsSystemDbContext>(options =>
-                options.UseSqlite("Filename=Yaseen.db"));
+                options.UseSqlite("Filename=../Yaseen.db"));
 
             services.AddIdentity<User, Role>()
                .AddEntityFrameworkStores<InstallmentsSystemDbContext>();
