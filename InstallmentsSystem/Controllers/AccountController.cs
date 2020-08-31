@@ -91,7 +91,7 @@ namespace InstallmentsSystem.Controllers
             var token = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddMinutes(120),
+                Expires = DateTime.Now.AddMinutes(240),
                 SigningCredentials = credentials
             };
             return tokenHandler.WriteToken(tokenHandler.CreateToken(token));
