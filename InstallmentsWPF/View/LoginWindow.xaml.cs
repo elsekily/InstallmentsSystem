@@ -14,6 +14,7 @@ namespace InstallmentsWPF.View
         private void LoginButtonClick(object sender, RoutedEventArgs e)
         {
 
+
         }
     }
 }
