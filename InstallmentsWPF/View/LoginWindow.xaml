@@ -1,0 +1,20 @@
+﻿<Window x:Class="InstallmentsWPF.View.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InstallmentsWPF.View"
+        mc:Ignorable="d"
+        Height="319" Width="300" FontSize="14" Background="{StaticResource LastBackgroundColor}" >
+    <Border Background="{StaticResource BackgroundColor}" CornerRadius="20" Margin="20">
+        <StackPanel Margin="20">
+            <Label Content="تسجيل الدخول" Foreground="{StaticResource ForegroundColor}" FontSize="25" HorizontalAlignment="Center"/>
+            <Separator></Separator>
+            <Label Content="اسم المستخدم" Foreground="{StaticResource ForegroundColor}" HorizontalAlignment="Right"/>
+            <TextBox Name="txtUsername" Background="{StaticResource LastBackgroundColor}" Foreground="{StaticResource ForegroundColor}" FontSize="18"/>
+            <Label Content="كلمة السر" Foreground="{StaticResource ForegroundColor}" HorizontalAlignment="Right"/>
+            <PasswordBox Name="txtPassword" Background="{StaticResource LastBackgroundColor}" Foreground="{StaticResource ForegroundColor}" FontSize="18"/>
+            <Button Name="LoginButton" Click="LoginButtonClick" Content="Login" Margin="60 10" Background="{StaticResource LastBackgroundColor}" Foreground="{StaticResource ForegroundColor}" FontSize="18"/>
+        </StackPanel>
+    </Border>
+</Window>

@@ -83,12 +83,6 @@ namespace InstallmentsSystem
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-
-            DefaultFilesOptions options = new DefaultFilesOptions();
-            options.DefaultFileNames.Clear();
-            options.DefaultFileNames.Add("home.html");
-            app.UseDefaultFiles(options);
-
             app.UseStaticFiles();
 
             app.UseRouting();
