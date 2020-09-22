@@ -15,6 +15,9 @@ export class ClientService {
   getClient(id) {
     return this.http.get<SaveClient>('/api/client/' + id);
   }
+  getClients() {
+    return this.http.get<SaveClient[]>('/api/client');
+  }
   update(client) {
     return this.http.put<SaveClient>('/api/client/' + client.id, client);
   }

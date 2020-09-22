@@ -1,0 +1,23 @@
+<h1>clients</h1>
+<p>
+  <a [routerLink]="['/client/new']" class="btn btn-primary">Add Client</a>
+</p>
+<br/>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>National Id</th>
+      <th>Mobile Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of clients">
+      <td>{{ c.id }}</td>
+      <td><a [routerLink]="['/client/', c.id]">{{ c.name }}</a></td>
+      <td>{{ c.nationalId}}</td>
+      <td>{{ c.mobileNumber }}</td>
+    </tr>
+  </tbody>
+</table>

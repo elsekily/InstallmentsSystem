@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ClientService } from '../../services/client.service';
 import { SaveClient } from '../../models/client';
 import { ActivatedRoute, Router } from '@angular/router';
-import { error } from 'console';
 
 @Component({
   selector: 'app-client-form',
@@ -27,7 +26,6 @@ export class ClientFormComponent implements OnInit {
 
       this.clientId = +p['id'] || 0;
     })
-    console.log(this.clientId);
   }
 
   ngOnInit() {
@@ -47,7 +45,9 @@ export class ClientFormComponent implements OnInit {
 
   submit() {
     if (this.client.id) {
-      this.clientservice.update(this.client).subscribe();
+      this.clientservice.update(this.client).subscribe(res => {
+        this.router.navigate(['/client']);
+      });
     }
     else {
       this.clientservice.create(this.client).subscribe(res => {

@@ -8,13 +8,15 @@ import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { HomeComponent } from './components/home/home.component';
 import { ClientFormComponent } from './components/client-form/client-form.component';
 import { ClientService } from './services/client.service';
+import { ClientListComponent } from './components/client-list/client-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    ClientFormComponent
+    ClientFormComponent,
+    ClientListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -22,6 +24,7 @@ import { ClientService } from './services/client.service';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'client', component: ClientListComponent },
       { path: 'client/new', component: ClientFormComponent },
       { path: 'client/:id', component: ClientFormComponent },
     ])
