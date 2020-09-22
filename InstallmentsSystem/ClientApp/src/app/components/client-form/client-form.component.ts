@@ -24,16 +24,25 @@ export class ClientFormComponent implements OnInit {
     private clientservice: ClientService
   ) {
     route.params.subscribe(p => {
-      this.clientId = +p['id'];
-    })
 
+      this.clientId = +p['id'] || 0;
+    })
+    console.log(this.clientId);
   }
 
   ngOnInit() {
-    this.clientservice.getClient(this.clientId)
-      .subscribe(c => {
-        this.client = c;
-      });
+    if (this.clientId != 0) {
+      this.clientservice.getClient(this.clientId)
+        .subscribe(c => {
+          this.client = c;
+        },
+          msg => {
+            if (msg.status == 404) {
+              this.router.navigate(['/'])
+            }
+          }
+        );
+    }    
   }
 
   submit() {
