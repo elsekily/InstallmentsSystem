@@ -29,6 +29,8 @@ namespace InstallmentsSystem.Controllers
         public async Task<IActionResult> GetClient(int id)
         {
             var client = await repository.GetClient(id);
+            if (client == null)
+                return NotFound();
             return Ok(mapper.Map<Client, ClientResourceWithInstallments>(client));
         }
 
@@ -71,7 +73,7 @@ namespace InstallmentsSystem.Controllers
             return Accepted(result);
         }
 
-        [Authorize(Policy = Policies.Admin)]
+        //[Authorize(Policy = Policies.Admin)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteClient(int id)
         {

@@ -6,8 +6,6 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { HomeComponent } from './components/home/home.component';
-import { CounterComponent } from './components/counter/counter.component';
-import { FetchDataComponent } from './components/fetch-data/fetch-data.component';
 import { ClientFormComponent } from './components/client-form/client-form.component';
 import { ClientService } from './services/client.service';
 
@@ -16,8 +14,6 @@ import { ClientService } from './services/client.service';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     ClientFormComponent
   ],
   imports: [
@@ -27,8 +23,7 @@ import { ClientService } from './services/client.service';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'client/new', component: ClientFormComponent },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'client/:id', component: ClientFormComponent },
     ])
   ],
   providers: [

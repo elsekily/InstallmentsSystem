@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators'
 import { SaveClient } from '../models/client';
 
 @Injectable({
@@ -12,5 +11,14 @@ export class ClientService {
 
   create(client) {
     return this.http.post<SaveClient>('/api/client', client);
+  }
+  getClient(id) {
+    return this.http.get<SaveClient>('/api/client/' + id);
+  }
+  update(client) {
+    return this.http.put<SaveClient>('/api/client/' + client.id, client);
+  }
+  delete(id) {
+    return this.http.delete('/api/client/' + id);
   }
 }
