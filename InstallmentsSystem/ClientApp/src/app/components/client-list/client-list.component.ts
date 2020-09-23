@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SaveClient } from '../../models/client';
+import { ClientSummary } from '../../models/client';
 import { ClientService } from '../../services/client.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { ClientService } from '../../services/client.service';
   styleUrls: ['./client-list.component.css']
 })
 export class ClientListComponent implements OnInit {
-  clients: SaveClient[];
+  clients: ClientSummary[];
 
   constructor(private clientService: ClientService) { }
 

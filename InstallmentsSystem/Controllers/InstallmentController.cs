@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace InstallmentsSystem.Controllers
 {
-    [Authorize(Policy = Policies.Moderator)]
+    //[Authorize(Policy = Policies.Moderator)]
     [Route("api/[controller]")]
     public class InstallmentController : Controller
     {

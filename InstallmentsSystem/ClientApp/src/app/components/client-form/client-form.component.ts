@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientService } from '../../services/client.service';
-import { SaveClient } from '../../models/client';
+import { ClientSummary, ClientWithInstallments } from '../../models/client';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -10,11 +10,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ClientFormComponent implements OnInit {
   clientId: number;
-  client: SaveClient = {
+  client: ClientWithInstallments = {
     id: 0,
     name: '',
     nationalId: '',
-    mobileNumber: ''
+    mobileNumber: '',
+    installments: []
   };
 
   constructor(
@@ -39,8 +40,8 @@ export class ClientFormComponent implements OnInit {
               this.router.navigate(['/'])
             }
           }
-        );
-    }    
+      );
+    }
   }
 
   submit() {
