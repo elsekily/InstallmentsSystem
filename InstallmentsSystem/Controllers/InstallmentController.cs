@@ -4,6 +4,7 @@ using InstallmentsSystem.Entities.Models;
 using InstallmentsSystem.Entities.Resources;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -30,6 +31,9 @@ namespace InstallmentsSystem.Controllers
         public async Task<IActionResult> GetInstallment(int id)
         {
             var installment = await repository.GetInstallment(id);
+
+            if (installment == null)
+                return NotFound();
             return Ok(mapper.Map<Installment, InstallmentResoureceWithPayments>(installment));
         }
         
@@ -96,7 +100,7 @@ namespace InstallmentsSystem.Controllers
             return Accepted(result);
         }
 
-        [Authorize(Policy = Policies.Admin)]
+        //[Authorize(Policy = Policies.Admin)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteInstallment(int id)
         {

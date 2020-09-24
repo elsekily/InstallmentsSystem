@@ -28,7 +28,7 @@ namespace InstallmentsSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateInstallment([FromBody] PaymentSaveResource paymentResource)
+        public async Task<IActionResult> CreatePayment([FromBody] PaymentSaveResource paymentResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -39,7 +39,7 @@ namespace InstallmentsSystem.Controllers
 
             var installment = await installmentRepository.GetInstallment(payment.InstallmentId);
             var result = mapper.Map<Installment, InstallmentResourece>(installment);
-            return Created(nameof(CreateInstallment), result);
+            return Created(nameof(CreatePayment), result);
         }
 
         [Authorize(Policy = Policies.Admin)]

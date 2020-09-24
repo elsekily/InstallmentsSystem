@@ -1,0 +1,84 @@
+<h1 *ngIf="!installment.id">New Installment</h1>
+<h1 *ngIf="installment.id">{{installment.clientName}} - {{installment.deviceName}}</h1>
+<form (ngSubmit)="submit()">
+  <div class="wrapper">
+    <div class="form-group">
+      <label for="devicename">Device Name</label>
+      <input id="devicename" type="text" class="form-control" [(ngModel)]="installment.deviceName" name="devicename" aria-label="...">
+    </div>
+    <div class="form-group">
+      <label for="deviceActualPrice">Device Actual Price</label>
+      <input id="deviceActualPrice" type="text" class="form-control" [(ngModel)]="installment.deviceActualPrice" name="deviceActualPrice" aria-label="...">
+    </div>
+    <div class="form-group">
+      <label for="devicePrice">Device Price</label>
+      <input id="devicePrice" type="text" class="form-control" [(ngModel)]="installment.devicePrice" name="devicePrice" aria-label="...">
+    </div>
+    <div class="form-group">
+      <label for="firstInstallment">first Installment</label>
+      <input id="firstInstallment" type="text" class="form-control" [(ngModel)]="installment.firstInstallment" name="firstInstallment" aria-label="...">
+    </div>
+    <div class="form-group">
+      <label for="paymentScheme">Payment Scheme</label>
+      <input id="paymentScheme" type="text" class="form-control" [(ngModel)]="installment.paymentScheme" name="paymentScheme" aria-label="...">
+    </div>
+    <div class="form-group">
+      <label for="montlyPayment">Montly Payment</label>
+      <input id="montlyPayment" type="text" class="form-control" [(ngModel)]="installment.montlyPayment" name="montlyPayment" aria-label="...">
+    </div>
+    <div class="form-group">
+      <label for="dayofPayment">Day of Payment</label>
+      <input id="dayofPayment" type="text" class="form-control" [(ngModel)]="installment.dayofPayment" name="dayofPayment" aria-label="...">
+    </div>
+    <div class="form-group">
+      <label for="remaining">Remaining</label>
+      <input id="remaining" type="text" class="form-control" [(ngModel)]="installment.devicePrice-installment.firstInstallment" name="remaining" aria-label="..." readonly>
+    </div>
+    <div class="form-group">
+      <label for="startDate">Start Date</label>
+      <input id="startDate" type="text" class="form-control" value="{{ installment.startDate | date }}" readonly>
+    </div>
+    <div class="form-group" *ngIf="installment.id">
+      <label for="nextPayment">next Payment</label>
+      <input id="nextPayment" type="text" class="form-control" value="{{ installment.nextPayment | date }}" readonly>
+    </div>
+  </div>
+  <div *ngIf="installment.id">
+    <label for="nextPayment">Next Payment</label>
+    <div class="input-group mb-3">
+      <input type="date" id="nextPayment" class="form-control" [(ngModel)]="installment.nextPayment" name="nextPayment">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="changeDate()">Change Date</button>
+      </div>
+    </div>
+
+  </div>
+  <button class="btn btn-primary">Save</button>
+  <button *ngIf="installment.id" class="btn btn-danger" type="button" (click)="delete()">Delete</button>
+</form>
+<div *ngIf="installment.id">
+  <hr />
+  <p>
+    <a [routerLink]="['/payment/new']" class="btn btn-primary">Add Payment</a>
+  </p>
+  <br />
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Month Number</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Detials</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of installment.payments">
+        <td>{{ p.monthNumber }}</td>
+        <td>{{ p.amount}}</td>
+        <td>{{ p.date | date}}</td>
+        <td>{{ p.detials}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

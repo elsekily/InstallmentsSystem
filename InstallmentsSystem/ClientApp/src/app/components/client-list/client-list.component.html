@@ -6,7 +6,6 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Id</th>
       <th>Name</th>
       <th>National Id</th>
       <th>Mobile Number</th>
@@ -14,7 +13,6 @@
   </thead>
   <tbody>
     <tr *ngFor="let c of clients">
-      <td>{{ c.id }}</td>
       <td><a [routerLink]="['/client/', c.id]">{{ c.name }}</a></td>
       <td>{{ c.nationalId}}</td>
       <td>{{ c.mobileNumber }}</td>

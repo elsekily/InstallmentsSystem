@@ -1,17 +1,19 @@
 <h1 *ngIf="!client.id">New Client</h1>
 <h1 *ngIf="client.id">{{client.name}}</h1>
 <form (ngSubmit)="submit()">
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input id="name" type="text" class="form-control" [(ngModel)]="client.name" name="name" aria-label="...">
-  </div>
-  <div class="form-group">
-    <label for="NationalId">National Id</label>
-    <input id="NationalId" type="text" class="form-control" [(ngModel)]="client.nationalId" name="nationalId" aria-label="...">
-  </div>
-  <div class="form-group">
-    <label for="MobileNumber">Mobile Number</label>
-    <input id="MobileNumber" type="text" class="form-control" [(ngModel)]="client.mobileNumber" name="mobileNumber" aria-label="...">
+  <div class="wrapper">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input id="name" type="text" class="form-control" [(ngModel)]="client.name" name="name" aria-label="...">
+    </div>
+    <div class="form-group">
+      <label for="NationalId">National Id</label>
+      <input id="NationalId" type="text" class="form-control" [(ngModel)]="client.nationalId" name="nationalId" aria-label="...">
+    </div>
+    <div class="form-group">
+      <label for="MobileNumber">Mobile Number</label>
+      <input id="MobileNumber" type="text" class="form-control" [(ngModel)]="client.mobileNumber" name="mobileNumber" aria-label="...">
+    </div>
   </div>
   <button class="btn btn-primary">Save</button>
   <button *ngIf="client.id" class="btn btn-danger" type="button" (click)="delete()">Delete</button>
@@ -19,13 +21,12 @@
 <div *ngIf="client.id">
   <hr />
   <p>
-    <a [routerLink]="['/installment/new']" class="btn btn-primary">Add Installment</a>
+    <a [routerLink]="['/installment/new/'+client.id]" class="btn btn-primary">Add Installment</a>
   </p>
   <br />
   <table class="table">
     <thead>
       <tr>
-        <th>Id</th>
         <th>Device Name</th>
         <th>Payment Scheme</th>
         <th>Remaining</th>
@@ -34,14 +35,12 @@
     </thead>
     <tbody>
       <tr *ngFor="let i of client.installments">
-        <td>{{ i.id }}</td>
-        <td>{{ i.deviceName }}</td>
+        <td><a [routerLink]="['/installment/', i.id]">{{ i.deviceName }}</a></td>
         <td>{{ i.paymentScheme}}</td>
         <td>{{ i.remaining}}</td>
         <td>{{ i.nextPayment | date}}</td>
       </tr>
     </tbody>
   </table>
-  <p>{{client.installments | json}}</p>
 </div>
 

@@ -60,9 +60,8 @@ export class ClientFormComponent implements OnInit {
   delete() {
     if (confirm('Are you sure??')) {
       this.clientservice.delete(this.client.id).subscribe(res => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/client']);
       });
-    }
-    
+    } 
   }
 }
