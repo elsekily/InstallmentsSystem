@@ -1,0 +1,15 @@
+<h1>New Payment - {{ clientName }}</h1>
+{{ savepayment | json }}
+<form (ngSubmit)="submit()">
+  <div class="wrapper">
+    <div class="form-group">
+      <label for="amount">Amount</label>
+      <input id="amount" type="text" class="form-control" [(ngModel)]="savepayment.amount" name="amount" aria-label="...">
+    </div>
+    <div class="form-group">
+      <label for="details">Details</label>
+      <input id="details" type="text" class="form-control" [(ngModel)]="savepayment.detials" name="details" aria-label="...">
+    </div>
+  </div>
+  <button class="btn btn-primary">Save</button>
+</form>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InstallmentService } from '../../services/installment.service';
 import { Installment, SaveInstallment, IdDatePair } from '../../models/installment';
+import { ClientService } from '../../services/client.service';
+import { PaymentService } from '../../services/payment.service';
 
 @Component({
   selector: 'app-installment-form',
@@ -11,7 +13,7 @@ import { Installment, SaveInstallment, IdDatePair } from '../../models/installme
 export class InstallmentFormComponent implements OnInit {
   installmentId: number;
   clientid: number;
-
+  dateNext: Date;
   installment: Installment = {
     id: 0,
     deviceName: '',
@@ -32,7 +34,9 @@ export class InstallmentFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private installmentservice: InstallmentService
+    private installmentservice: InstallmentService,
+    private clientservice: ClientService,
+    private paymentservice: PaymentService
   ) {
     route.params.subscribe(p => {
 
@@ -48,16 +52,25 @@ export class InstallmentFormComponent implements OnInit {
       this.installmentservice.getinstallment(this.installmentId)
         .subscribe(i => {
           this.installment = i;
+          if (this.installment.remaining == 0)
+            this.installment.remaining = 0.01;
         },
           msg => {
             if (msg.status == 404) {
-              this.router.navigate(['/client'])
+              this.router.navigate(['/error'])
             }
           }
         );
     }
     else {
-      this.installment.clientId = this.clientid;
+      this.clientservice.getClient(this.clientid)
+        .subscribe(res => {
+          this.installment.clientId = res.id;
+        }, msg => {
+          if (msg.status == 404) {
+            this.router.navigate(['/error'])
+          }
+        });
     }
   }
   submit() {
@@ -72,7 +85,6 @@ export class InstallmentFormComponent implements OnInit {
       clientId: +this.installment.clientId,
     };
 
-    console.log(installmentSave);
     if (this.installment.id) {
       this.installmentservice.update(this.installment.id, installmentSave).subscribe(res => {
         this.router.navigate(['/installment/' + res.id]);
@@ -94,10 +106,17 @@ export class InstallmentFormComponent implements OnInit {
   changeDate() {
     let iddate: IdDatePair = {
       id: this.installment.id,
-      Date: this.installment.nextPayment,
+      Date: this.dateNext,
     };
     this.installmentservice.updateNextPayment(iddate).subscribe(res => {
       this.router.navigate(['/installment/' + res.id]);
+      window.location.reload();
+    });
+  }
+  deletelastpayment() {
+    this.paymentservice.delete(this.installment.id).subscribe(res => {
+      window.location.reload();
+
     });
   }
 }

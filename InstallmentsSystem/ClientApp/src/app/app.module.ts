@@ -11,6 +11,10 @@ import { ClientService } from './services/client.service';
 import { ClientListComponent } from './components/client-list/client-list.component';
 import { InstallmentFormComponent } from './components/installment-form/installment-form.component';
 import { InstallmentService } from './services/installment.service';
+import { ErrorComponent } from './components/error/error.component';
+import { PaymentformComponent } from './components/paymentform/paymentform.component';
+import { PaymentService } from './services/payment.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,9 @@ import { InstallmentService } from './services/installment.service';
     HomeComponent,
     ClientFormComponent,
     ClientListComponent,
-    InstallmentFormComponent
+    InstallmentFormComponent,
+    ErrorComponent,
+    PaymentformComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -27,16 +33,20 @@ import { InstallmentService } from './services/installment.service';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'error', component: ErrorComponent },
       { path: 'client', component: ClientListComponent },
       { path: 'client/new', component: ClientFormComponent },
       { path: 'client/:id', component: ClientFormComponent },
       { path: 'installment/new/:clientid', component: InstallmentFormComponent },
       { path: 'installment/:id', component: InstallmentFormComponent },
+      { path: 'payment/:installmentid', component: PaymentformComponent },
     ])
   ],
   providers: [
     ClientService,
     InstallmentService,
+    PaymentService,
+    AuthService,
   ],
   bootstrap: [AppComponent]
 })

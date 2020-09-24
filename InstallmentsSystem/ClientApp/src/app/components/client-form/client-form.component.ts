@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClientService } from '../../services/client.service';
 import { ClientSummary, ClientWithInstallments } from '../../models/client';
 import { ActivatedRoute, Router } from '@angular/router';
+import { InstallmentSummary } from '../../models/installment';
 
 @Component({
   selector: 'app-client-form',
@@ -10,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ClientFormComponent implements OnInit {
   clientId: number;
+  filterValue: string;
   client: ClientWithInstallments = {
     id: 0,
     name: '',
@@ -17,7 +19,7 @@ export class ClientFormComponent implements OnInit {
     mobileNumber: '',
     installments: []
   };
-
+  allinstallments: InstallmentSummary[];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -34,10 +36,11 @@ export class ClientFormComponent implements OnInit {
       this.clientservice.getClient(this.clientId)
         .subscribe(c => {
           this.client = c;
+          this.allinstallments = c.installments;
         },
           msg => {
             if (msg.status == 404) {
-              this.router.navigate(['/'])
+              this.router.navigate(['/error'])
             }
           }
       );
@@ -63,5 +66,16 @@ export class ClientFormComponent implements OnInit {
           this.router.navigate(['/client']);
       });
     } 
+  }
+
+  applyFilter() {
+    console.log(this.filterValue);
+    let filterValueLower = this.filterValue.toLowerCase();
+    if (this.filterValue === '') {
+      this.client.installments = this.allinstallments;
+    }
+    else {
+      this.client.installments = this.allinstallments.filter((c) => c.deviceName.includes(filterValueLower));
+    }
   }
 }

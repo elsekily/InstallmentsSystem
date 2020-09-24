@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace InstallmentsSystem.Controllers
 {
-    [Authorize(Policy = Policies.Moderator)]
+    //[Authorize(Policy = Policies.Moderator)]
     [Route("api/[controller]")]
     public class PaymentController : Controller
     {
@@ -42,7 +42,7 @@ namespace InstallmentsSystem.Controllers
             return Created(nameof(CreatePayment), result);
         }
 
-        [Authorize(Policy = Policies.Admin)]
+        //[Authorize(Policy = Policies.Admin)]
         [HttpDelete("{installmentId}")]
         public async Task<IActionResult> DeleteLastPayment(int installmentId)
         {

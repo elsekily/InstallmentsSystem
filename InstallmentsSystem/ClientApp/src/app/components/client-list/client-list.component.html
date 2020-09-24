@@ -3,6 +3,10 @@
   <a [routerLink]="['/client/new']" class="btn btn-primary">Add Client</a>
 </p>
 <br/>
+<p>
+  <label for="search"></label>
+  <input id="search" type="text" (keyup)="applyFilter()" [(ngModel)]="filterValue">
+</p>
 <table class="table">
   <thead>
     <tr>

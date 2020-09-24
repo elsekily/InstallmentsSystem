@@ -1,0 +1,8 @@
+.center {
+  margin: auto;
+  width: 50%;
+  height:50%;
+  padding: 10px;
+  align-content:center;
+  align-self:center;
+}

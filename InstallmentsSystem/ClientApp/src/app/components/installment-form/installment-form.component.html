@@ -32,7 +32,8 @@
     </div>
     <div class="form-group">
       <label for="remaining">Remaining</label>
-      <input id="remaining" type="text" class="form-control" [(ngModel)]="installment.devicePrice-installment.firstInstallment" name="remaining" aria-label="..." readonly>
+      <input *ngIf="!installment.remaining" id="remaining" type="text" class="form-control" [(ngModel)]="installment.devicePrice-installment.firstInstallment" name="remaining" aria-label="..." readonly>
+      <input *ngIf="installment.remaining" id="remaining" type="text" class="form-control" [(ngModel)]="installment.remaining" name="remaining" aria-label="..." readonly>
     </div>
     <div class="form-group">
       <label for="startDate">Start Date</label>
@@ -43,25 +44,21 @@
       <input id="nextPayment" type="text" class="form-control" value="{{ installment.nextPayment | date }}" readonly>
     </div>
   </div>
-  <div *ngIf="installment.id">
-    <label for="nextPayment">Next Payment</label>
-    <div class="input-group mb-3">
-      <input type="date" id="nextPayment" class="form-control" [(ngModel)]="installment.nextPayment" name="nextPayment">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="changeDate()">Change Date</button>
-      </div>
-    </div>
-
-  </div>
   <button class="btn btn-primary">Save</button>
   <button *ngIf="installment.id" class="btn btn-danger" type="button" (click)="delete()">Delete</button>
 </form>
+<br />
+<div *ngIf="installment.id">
+  <label for="nextPaymentset">Next Payment</label>
+  <input type="date" id="nextPaymentset" class="form-control" [(ngModel)]="dateNext" name="nextPaymentset">
+  <button class="btn btn-outline-secondary" type="button" (click)="changeDate()">Change Date</button>
+</div>
 <div *ngIf="installment.id">
   <hr />
   <p>
-    <a [routerLink]="['/payment/new']" class="btn btn-primary">Add Payment</a>
+    <a [routerLink]="['/payment/'+installment.id]" class="btn btn-primary">Add Payment</a>
+    <button class="btn btn-danger" type="button" (click)="deletelastpayment()">Delete Last Payment</button>
   </p>
-  <br />
   <table class="table">
     <thead>
       <tr>

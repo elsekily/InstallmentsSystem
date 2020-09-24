@@ -24,6 +24,10 @@
     <a [routerLink]="['/installment/new/'+client.id]" class="btn btn-primary">Add Installment</a>
   </p>
   <br />
+  <p>
+    <label for="search"></label>
+    <input id="search" type="text" (keyup)="applyFilter()" [(ngModel)]="filterValue">
+  </p>
   <table class="table">
     <thead>
       <tr>
