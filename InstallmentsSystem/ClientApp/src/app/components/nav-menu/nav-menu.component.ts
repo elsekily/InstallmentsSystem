@@ -34,7 +34,7 @@ export class NavMenuComponent {
   }
 
   logout() {
-    if (confirm('Are you sure??')) {
+    if (confirm('سيتم تسجيل الخروج')) {
       this.authservice.logout();
       window.location.replace('/');
     }

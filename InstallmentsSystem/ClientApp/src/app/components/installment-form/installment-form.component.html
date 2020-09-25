@@ -1,71 +1,71 @@
-<h1 *ngIf="!installment.id">New Installment</h1>
+<h1 *ngIf="!installment.id">تقسيط جديد</h1>
 <h1 *ngIf="installment.id">{{installment.clientName}} - {{installment.deviceName}}</h1>
 <form (ngSubmit)="submit()">
   <div class="wrapper">
     <div class="form-group">
-      <label for="devicename">Device Name</label>
+      <label for="devicename">اسم الجهاز</label>
       <input id="devicename" type="text" class="form-control" [(ngModel)]="installment.deviceName" name="devicename" aria-label="...">
     </div>
     <div class="form-group">
-      <label for="deviceActualPrice">Device Actual Price</label>
+      <label for="deviceActualPrice">سعر الجهاز الاصلى</label>
       <input id="deviceActualPrice" type="text" class="form-control" [(ngModel)]="installment.deviceActualPrice" name="deviceActualPrice" aria-label="...">
     </div>
     <div class="form-group">
-      <label for="devicePrice">Device Price</label>
+      <label for="devicePrice">سعر الجهاز بعد التقسيط</label>
       <input id="devicePrice" type="text" class="form-control" [(ngModel)]="installment.devicePrice" name="devicePrice" aria-label="...">
     </div>
     <div class="form-group">
-      <label for="firstInstallment">first Installment</label>
+      <label for="firstInstallment">المقدم</label>
       <input id="firstInstallment" type="text" class="form-control" [(ngModel)]="installment.firstInstallment" name="firstInstallment" aria-label="...">
     </div>
     <div class="form-group">
-      <label for="paymentScheme">Payment Scheme</label>
+      <label for="paymentScheme">عدد الأشهر</label>
       <input id="paymentScheme" type="text" class="form-control" [(ngModel)]="installment.paymentScheme" name="paymentScheme" aria-label="...">
     </div>
     <div class="form-group">
-      <label for="montlyPayment">Montly Payment</label>
+      <label for="montlyPayment">القسط الشهرى</label>
       <input id="montlyPayment" type="text" class="form-control" [(ngModel)]="installment.montlyPayment" name="montlyPayment" aria-label="...">
     </div>
     <div class="form-group">
-      <label for="dayofPayment">Day of Payment</label>
+      <label for="dayofPayment">يوم الدفع</label>
       <input id="dayofPayment" type="text" class="form-control" [(ngModel)]="installment.dayofPayment" name="dayofPayment" aria-label="...">
     </div>
     <div class="form-group">
-      <label for="remaining">Remaining</label>
+      <label for="remaining">الباقى</label>
       <input *ngIf="!installment.remaining" id="remaining" type="text" class="form-control" [(ngModel)]="installment.devicePrice-installment.firstInstallment" name="remaining" aria-label="..." readonly>
       <input *ngIf="installment.remaining" id="remaining" type="text" class="form-control" [(ngModel)]="installment.remaining" name="remaining" aria-label="..." readonly>
     </div>
     <div class="form-group">
-      <label for="startDate">Start Date</label>
+      <label for="startDate">بداية القسط</label>
       <input id="startDate" type="text" class="form-control" value="{{ installment.startDate | date }}" readonly>
     </div>
     <div class="form-group" *ngIf="installment.id">
-      <label for="nextPayment">next Payment</label>
+      <label for="nextPayment">الدفع القادم</label>
       <input id="nextPayment" type="text" class="form-control" value="{{ installment.nextPayment | date }}" readonly>
     </div>
   </div>
-  <button class="btn btn-primary">Save</button>
-  <button *ngIf="installment.id" class="btn btn-danger" type="button" (click)="delete()">Delete</button>
+  <button class="btn btn-primary">حفظ</button>
+  <button *ngIf="installment.id" class="btn btn-danger" type="button" (click)="delete()">حذف</button>
 </form>
 <br />
 <div *ngIf="installment.id">
-  <label for="nextPaymentset">Next Payment</label>
+  <label for="nextPaymentset">الدفع القادم</label>
   <input type="date" id="nextPaymentset" class="form-control" [(ngModel)]="dateNext" name="nextPaymentset">
-  <button class="btn btn-outline-secondary" type="button" (click)="changeDate()">Change Date</button>
+  <button class="btn btn-outline-secondary" type="button" (click)="changeDate()">اضغط للحفظ</button>
 </div>
 <div *ngIf="installment.id">
   <hr />
   <p>
-    <a [routerLink]="['/payment/'+installment.id]" class="btn btn-primary">Add Payment</a>
-    <button class="btn btn-danger" type="button" (click)="deletelastpayment()">Delete Last Payment</button>
+    <a [routerLink]="['/payment/'+installment.id]" class="btn btn-primary">دفع قسط</a>
+    <button class="btn btn-danger" type="button" (click)="deletelastpayment()">حذف اخر قسط</button>
   </p>
   <table class="table">
     <thead>
       <tr>
-        <th>Month Number</th>
-        <th>Amount</th>
-        <th>Date</th>
-        <th>Detials</th>
+        <th>رقم الشهر</th>
+        <th>المبلغ</th>
+        <th>التاريخ</th>
+        <th>ملحوظات</th>
       </tr>
     </thead>
     <tbody>

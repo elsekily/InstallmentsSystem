@@ -97,13 +97,13 @@ export class InstallmentFormComponent implements OnInit {
     }
   }
   delete() {
-    if (confirm('Are you sure??')) {
+    if (confirm('هل أنت متأكد من حذف هذا القسط؟')) {
       this.installmentservice.delete(this.installment.id).subscribe(res => {
         this.router.navigate(['/client/' + this.installment.clientId]);
       },
         msg => {
           if (msg.status == 401) {
-            alert('login as an Admin!!');
+            alert('من فضلك سجل الدخول كمشرف!');
           }
         });
     }
@@ -119,13 +119,15 @@ export class InstallmentFormComponent implements OnInit {
     });
   }
   deletelastpayment() {
-    this.paymentservice.delete(this.installment.id).subscribe(res => {
-      window.location.reload();
-    },
-      msg => {
-        if (msg.status == 401) {
-          alert('login as an Admin!!');
-        }
-      });
+    if (confirm('هل أنت متأكد من حذف اخر دفع؟')) {
+      this.paymentservice.delete(this.installment.id).subscribe(res => {
+        window.location.reload();
+      },
+        msg => {
+          if (msg.status == 401) {
+            alert('من فضلك سجل الدخول كمشرف!');
+          }
+        });
+    }
   }
 }

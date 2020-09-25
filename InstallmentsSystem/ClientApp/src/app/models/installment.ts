@@ -4,6 +4,7 @@ export interface InstallmentSummary {
   id: number;
   deviceName: string;
   clientName: string;
+  clientId: number;
   paymentScheme: number;
   remaining: string;
   montlyPayment: number;

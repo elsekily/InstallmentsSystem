@@ -61,13 +61,13 @@ export class ClientFormComponent implements OnInit {
   }
 
   delete() {
-    if (confirm('Are you sure??')) {
+    if (confirm('هل أنت متأكد من حذف هذا العميل؟')) {
       this.clientservice.delete(this.client.id).subscribe(res => {
           this.router.navigate(['/client']);
       },
         msg => {
           if (msg.status == 401) {
-            alert('login as an Admin!!');
+            alert('من فضلك سجل الدخول كمشرف!');
         }
       }
       );
