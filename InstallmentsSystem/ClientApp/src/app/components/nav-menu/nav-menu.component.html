@@ -25,8 +25,6 @@
                  placeholder="Password" required [(ngModel)]="user.password" />
           <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
         </form>
-
-
         <ul class="navbar-nav flex-grow">
           <li class="nav-item"
               [routerLinkActive]="['link-active']"
@@ -37,7 +35,10 @@
             <a class="nav-link text-dark" [routerLink]="['/client']">CLients</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/client/new']"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New CLient</a>
+            <a class="nav-link text-dark" [routerLink]="['/lateinstallments']">Late Installments</a>
+          </li>
+          <li *ngIf="loggedIn()" class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" (click)="logout()" style="cursor:pointer">Logout</a>
           </li>
         </ul>
       </div>

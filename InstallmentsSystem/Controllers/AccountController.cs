@@ -19,16 +19,14 @@ namespace InstallmentsSystem.Controllers
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
-        private readonly RoleManager<Role> roleManager;
         private readonly IConfiguration configuration;
 
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,
-            RoleManager<Role> roleManager, IConfiguration configuration)
+            IConfiguration configuration)
         {
             this.configuration = configuration;
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.roleManager = roleManager;
         }
         [Authorize(Policy = Policies.Admin)]
         [HttpPost("create/user/moderator")]

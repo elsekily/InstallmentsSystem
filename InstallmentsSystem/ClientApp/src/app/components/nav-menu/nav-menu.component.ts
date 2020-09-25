@@ -15,14 +15,6 @@ export class NavMenuComponent {
     userName:''
   };
 
-  loggeduser: loggedUser = {
-    id: 0,
-    email: '',
-    roles: [],
-    userName: '',
-    tokenString: ''
-  };
-
   constructor(private authservice: AuthService) { }
 
   collapse() {
@@ -33,14 +25,18 @@ export class NavMenuComponent {
     this.isExpanded = !this.isExpanded;
   }
   submit() {
-    console.log(this.user);
     this.authservice.login(this.user).subscribe(res => {
-      console.log(res.tokenString);
       localStorage.setItem('token', res.tokenString);
     });
   }
   loggedIn() {
-    const token = localStorage.getItem('token');
-    return !!token;
+    return this.authservice.authenticated();
+  }
+
+  logout() {
+    if (confirm('Are you sure??')) {
+      this.authservice.logout();
+      window.location.replace('/');
+    }
   }
 }

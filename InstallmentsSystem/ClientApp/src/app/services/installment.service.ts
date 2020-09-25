@@ -19,6 +19,9 @@ export class InstallmentService {
   getInstallments() {
     return this.http.get<InstallmentSummary[]>('/api/installment');
   }
+  getLateInstallments() {
+    return this.http.get<InstallmentSummary[]>('/api/installment/late');
+  }
   update(id, installment: SaveInstallment) {
     return this.http.put<Installment>('/api/installment/' + id, installment);
   }

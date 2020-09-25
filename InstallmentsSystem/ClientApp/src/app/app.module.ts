@@ -15,6 +15,9 @@ import { ErrorComponent } from './components/error/error.component';
 import { PaymentformComponent } from './components/paymentform/paymentform.component';
 import { PaymentService } from './services/payment.service';
 import { AuthService } from './services/auth.service';
+import { LateinstallmentsComponent } from './components/lateinstallments/lateinstallments.component';
+import { AuthGuard } from './services/AuthGuard.service';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -26,20 +29,27 @@ import { AuthService } from './services/auth.service';
     InstallmentFormComponent,
     ErrorComponent,
     PaymentformComponent,
+    LateinstallmentsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => { return localStorage.getItem('token') },
+      }
+    }),
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'error', component: ErrorComponent },
-      { path: 'client', component: ClientListComponent },
-      { path: 'client/new', component: ClientFormComponent },
-      { path: 'client/:id', component: ClientFormComponent },
-      { path: 'installment/new/:clientid', component: InstallmentFormComponent },
-      { path: 'installment/:id', component: InstallmentFormComponent },
-      { path: 'payment/:installmentid', component: PaymentformComponent },
+      { path: 'client', component: ClientListComponent, canActivate: [AuthGuard] },
+      { path: 'client/new', component: ClientFormComponent, canActivate: [AuthGuard] },
+      { path: 'client/:id', component: ClientFormComponent, canActivate: [AuthGuard] },
+      { path: 'installment/new/:clientid', component: InstallmentFormComponent, canActivate: [AuthGuard] },
+      { path: 'installment/:id', component: InstallmentFormComponent, canActivate: [AuthGuard] },
+      { path: 'payment/:installmentid', component: PaymentformComponent, canActivate: [AuthGuard] },
+      { path: 'lateinstallments', component: LateinstallmentsComponent, canActivate: [AuthGuard] },
     ])
   ],
   providers: [
@@ -47,6 +57,7 @@ import { AuthService } from './services/auth.service';
     InstallmentService,
     PaymentService,
     AuthService,
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })

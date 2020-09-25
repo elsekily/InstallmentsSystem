@@ -1,0 +1,22 @@
+<h1>Late Installments</h1>
+<br />
+<table class="table">
+  <thead>
+    <tr>
+      <th>Device Name</th>
+      <th>Payment Scheme</th>
+      <th>Remaining</th>
+      <th>Next Payment</th>
+      <th>Client Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let i of installments">
+      <td><a [routerLink]="['/installment/', i.id]">{{ i.deviceName }}</a></td>
+      <td>{{ i.paymentScheme}}</td>
+      <td>{{ i.remaining}}</td>
+      <td>{{ i.nextPayment | date}}</td>
+      <td><a [routerLink]="['/client/', i.clientid]">{{ i.clientName }}</a></td>
+    </tr>
+  </tbody>
+</table>

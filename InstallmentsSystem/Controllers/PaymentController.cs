@@ -41,8 +41,7 @@ namespace InstallmentsSystem.Controllers
             var result = mapper.Map<Installment, InstallmentResourece>(installment);
             return Created(nameof(CreatePayment), result);
         }
-
-        //[Authorize(Policy = Policies.Admin)]
+        [Authorize(Policy = Policies.Admin)]
         [HttpDelete("{installmentId}")]
         public async Task<IActionResult> DeleteLastPayment(int installmentId)
         {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace InstallmentsSystem.Controllers
 {
-    //[Authorize(Policy = Policies.Moderator)]
+    [Authorize(Policy = Policies.Moderator)]
     [Route("api/[controller]")]
     public class ClientController : Controller
     {
@@ -72,8 +72,7 @@ namespace InstallmentsSystem.Controllers
             var result = mapper.Map<Client, ClientResource>(client);
             return Accepted(result);
         }
-
-        //[Authorize(Policy = Policies.Admin)]
+        [Authorize(Policy = Policies.Admin)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteClient(int id)
         {
