@@ -29,10 +29,8 @@ namespace InstallmentsSystem.Persistence.Repositories
 
         public async Task<Installment> GetInstallment(int id)
         {
-            var installment = await context.Installments.Where(i => i.Id == id)
+            return await context.Installments.Where(i => i.Id == id)
                 .Include(i => i.Payments).Include(i => i.Client).SingleOrDefaultAsync();
-            installment.Payments.OrderByDescending(p => p.MonthNumber);
-            return installment;
         }
         public async Task<IEnumerable<Installment>> GetInstallments()
         {
