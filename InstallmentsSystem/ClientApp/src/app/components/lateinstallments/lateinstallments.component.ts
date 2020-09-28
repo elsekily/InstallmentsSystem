@@ -9,7 +9,6 @@ import { InstallmentService } from '../../services/installment.service';
 })
 export class LateinstallmentsComponent implements OnInit {
 
-  allinstallments: InstallmentSummary[];
   installments: InstallmentSummary[];
 
   constructor(private installmentservice: InstallmentService) { }
@@ -17,7 +16,6 @@ export class LateinstallmentsComponent implements OnInit {
   ngOnInit() {
     this.installmentservice.getLateInstallments().subscribe(res => {
       this.installments = res;
-      this.allinstallments = res;
     });
   }
 

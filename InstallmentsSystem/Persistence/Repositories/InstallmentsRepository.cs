@@ -40,7 +40,7 @@ namespace InstallmentsSystem.Persistence.Repositories
         public async Task<IEnumerable<Installment>> GetLateInstallments()
         {
             return await context.Installments.Where(i => i.NextPayment < DateTime.Now && i.Remaining >= 0)
-                .Include(i => i.Client).OrderByDescending(i => i.NextPayment).ToListAsync();
+                .Include(i => i.Client).OrderBy(i => i.NextPayment).ToListAsync();
         }
         public void Remove(Installment installment)
         {

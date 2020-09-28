@@ -1,5 +1,6 @@
 <h1 *ngIf="!installment.id">تقسيط جديد</h1>
 <h1 *ngIf="installment.id">{{installment.clientName}} - {{installment.deviceName}}</h1>
+<p>{{ dateNext }}</p>
 <form (ngSubmit)="submit()">
   <div class="wrapper">
     <div class="form-group">
@@ -48,11 +49,11 @@
   <button *ngIf="installment.id" class="btn btn-danger" type="button" (click)="delete()">حذف</button>
 </form>
 <br />
-<div *ngIf="installment.id">
+<form *ngIf="installment.id" #dateForm="ngForm" (ngSubmit)="changeDate()">
   <label for="nextPaymentset">الدفع القادم</label>
-  <input type="date" id="nextPaymentset" class="form-control" [(ngModel)]="dateNext" name="nextPaymentset">
-  <button class="btn btn-outline-secondary" type="button" (click)="changeDate()">اضغط للحفظ</button>
-</div>
+  <input type="date" value="" id="nextPaymentset" class="form-control" required [(ngModel)]="dateNext" name="nextPaymentset">
+  <button [disabled]="!dateForm.valid" class="btn btn-outline-secondary" type="submit">اضغط للحفظ</button>
+</form>
 <div *ngIf="installment.id">
   <hr />
   <p>

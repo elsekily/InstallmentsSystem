@@ -78,9 +78,9 @@ namespace InstallmentsSystem.Controllers
             var claims = new List<Claim>();
             var roles = userManager.GetRolesAsync(user).Result;
             claims = roles.Select(x => new Claim(ClaimTypes.Role, x)).ToList();
-            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
-            claims.Add(new Claim(ClaimTypes.Email, user.Email));
-            claims.Add(new Claim(ClaimTypes.Name, user.UserName));
+            claims.Add(new Claim("id", user.Id.ToString()));
+            claims.Add(new Claim("email", user.Email));
+            claims.Add(new Claim("name", user.UserName));
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
