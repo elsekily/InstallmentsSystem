@@ -39,8 +39,8 @@ namespace InstallmentsSystem.Controllers
         [HttpGet("late")]
         public async Task<IActionResult> GetLateInstallments()
         {
-            var installments = await repository.GetLateInstallments();
-            return Ok(mapper.Map<IEnumerable<Installment>, IEnumerable<InstallmentResourece>>(installments));
+            var lateInstallments = await repository.GetLateStillRemainingInstallments();
+            return Ok(mapper.Map<IEnumerable<Installment>, IEnumerable<InstallmentResourece>>(lateInstallments));
         }
         [HttpGet]
         public async Task<IActionResult> GetInstallments()

@@ -37,10 +37,10 @@ namespace InstallmentsSystem.Persistence.Repositories
             return await context.Installments
                 .Include(i => i.Client).ToListAsync();
         }
-        public async Task<IEnumerable<Installment>> GetLateInstallments()
+        public async Task<IEnumerable<Installment>> GetLateStillRemainingInstallments()
         {
             return await context.Installments.Where(i => i.NextPayment < DateTime.Now && i.Remaining > 0)
-                .Include(i => i.Client).OrderBy(i => i.NextPayment).ToListAsync();
+                .Include(i => i.Client).OrderByDescending(i => i.NextPayment).ToListAsync();
         }
         public void Remove(Installment installment)
         {

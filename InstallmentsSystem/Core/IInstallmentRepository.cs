@@ -10,7 +10,7 @@ namespace InstallmentsSystem.Core
     {
         Task<IEnumerable<Installment>> GetClientInstallments(int clientId);
         Task<IEnumerable<Installment>> GetInstallments();
-        Task<IEnumerable<Installment>> GetLateInstallments();
+        Task<IEnumerable<Installment>> GetLateStillRemainingInstallments();
         Task<Installment> GetInstallment(int id);
         void Add(Installment installment);
         void Remove(Installment installment);
