@@ -64,7 +64,13 @@ export class ClientFormComponent implements OnInit {
     if (confirm('Are you sure??')) {
       this.clientservice.delete(this.client.id).subscribe(res => {
           this.router.navigate(['/client']);
-      });
+      },
+        msg => {
+          if (msg.status == 401) {
+            alert('login as an Admin!!');
+        }
+      }
+      );
     } 
   }
 

@@ -100,7 +100,12 @@ export class InstallmentFormComponent implements OnInit {
     if (confirm('Are you sure??')) {
       this.installmentservice.delete(this.installment.id).subscribe(res => {
         this.router.navigate(['/client/' + this.installment.clientId]);
-      });
+      },
+        msg => {
+          if (msg.status == 401) {
+            alert('login as an Admin!!');
+          }
+        });
     }
   }
   changeDate() {
@@ -116,7 +121,11 @@ export class InstallmentFormComponent implements OnInit {
   deletelastpayment() {
     this.paymentservice.delete(this.installment.id).subscribe(res => {
       window.location.reload();
-
-    });
+    },
+      msg => {
+        if (msg.status == 401) {
+          alert('login as an Admin!!');
+        }
+      });
   }
 }

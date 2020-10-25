@@ -7,17 +7,18 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { HomeComponent } from './components/home/home.component';
 import { ClientFormComponent } from './components/client-form/client-form.component';
-import { ClientService } from './services/client.service';
 import { ClientListComponent } from './components/client-list/client-list.component';
 import { InstallmentFormComponent } from './components/installment-form/installment-form.component';
-import { InstallmentService } from './services/installment.service';
 import { ErrorComponent } from './components/error/error.component';
 import { PaymentformComponent } from './components/paymentform/paymentform.component';
+import { LateinstallmentsComponent } from './components/lateinstallments/lateinstallments.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { ClientService } from './services/client.service';
+import { InstallmentService } from './services/installment.service';
 import { PaymentService } from './services/payment.service';
 import { AuthService } from './services/auth.service';
-import { LateinstallmentsComponent } from './components/lateinstallments/lateinstallments.component';
 import { AuthGuard } from './services/AuthGuard.service';
-import { JwtModule } from '@auth0/angular-jwt';
+
 
 @NgModule({
   declarations: [
