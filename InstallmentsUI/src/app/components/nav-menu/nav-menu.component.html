@@ -1,0 +1,42 @@
+<header>
+  <nav
+    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
+  >
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['/']">الرئيسية</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+        aria-label="Toggle navigation"
+        [attr.aria-expanded]="isExpanded"
+        (click)="toggle()"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+           [ngClass]="{ show: isExpanded }">
+
+        <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="submit()">
+          <input dir="ltr" class="form-control mr-sm-2" type="text" name="email"
+                 placeholder="Email" required [(ngModel)]="user.email" />
+          <input dir="ltr" class="form-control mr-sm-2" type="password" name="password"
+                 placeholder="Password" required [(ngModel)]="user.password" />
+          <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">تسجيل الدخول</button>
+        </form>
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/client']">العملاء</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/lateinstallments']">المتأخر</a>
+          </li>
+          <li *ngIf="loggedIn()" class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" (click)="logout()" style="cursor:pointer">تسجيل الخروج</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

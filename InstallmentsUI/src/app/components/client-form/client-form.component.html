@@ -1,0 +1,50 @@
+<h1 *ngIf="!client.id">عميل جديد</h1>
+<h1 *ngIf="client.id">{{client.name}}</h1>
+<form (ngSubmit)="submit()">
+  <div class="wrapper">
+    <div class="form-group">
+      <label for="name">الاسم</label>
+      <input id="name" type="text" class="form-control" [(ngModel)]="client.name" name="name" aria-label="...">
+    </div>
+    <div class="form-group">
+      <label for="NationalId">الرقم القومي</label>
+      <input id="NationalId" type="text" class="form-control" [(ngModel)]="client.nationalId" name="nationalId" aria-label="...">
+    </div>
+    <div class="form-group">
+      <label for="MobileNumber">الموبايل</label>
+      <input id="MobileNumber" type="text" class="form-control" [(ngModel)]="client.mobileNumber" name="mobileNumber" aria-label="...">
+    </div>
+  </div>
+  <button class="btn btn-primary">حفظ</button>
+  <button *ngIf="client.id" class="btn btn-danger" type="button" (click)="delete()">حذف</button>
+</form>
+<div *ngIf="client.id">
+  <hr />
+  <p>
+    <a [routerLink]="['/installment/new/'+client.id]" class="btn btn-primary">تقسيط جديد</a>
+  </p>
+  <br />
+  <p>
+    <label for="search"></label>
+    <input id="search" type="text" (keyup)="applyFilter()" [(ngModel)]="filterValue">
+  </p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>اسم الجهاز</th>
+        <th>عدد الأشهر</th>
+        <th>الباقى</th>
+        <th>الدفع القادم</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of client.installments">
+        <td><a [routerLink]="['/installment/', i.id]">{{ i.deviceName }}</a></td>
+        <td>{{ i.paymentScheme}}</td>
+        <td>{{ i.remaining}}</td>
+        <td>{{ i.nextPayment | date}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
