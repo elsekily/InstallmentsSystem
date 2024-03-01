@@ -20,5 +20,14 @@ public class InstallmentsDbContext : IdentityDbContext<User, Role, int, Identity
         base.OnModelCreating(builder);
         builder.Entity<Installment>().HasOne(i => i.Client).WithMany(c => c.Installments);
         builder.Entity<Payment>().HasOne(p => p.Installment).WithMany(i => i.Payments);
+        builder.Entity<UserRole>()
+       .HasOne(ur => ur.User)
+       .WithMany(u => u.Roles)
+       .HasForeignKey(ur => ur.UserId);
+
+        builder.Entity<UserRole>()
+            .HasOne(ur => ur.Role)
+            .WithMany(r => r.User)
+            .HasForeignKey(ur => ur.RoleId);
     }
 }

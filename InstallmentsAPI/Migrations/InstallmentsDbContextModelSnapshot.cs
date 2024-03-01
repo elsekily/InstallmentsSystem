@@ -216,19 +216,9 @@ namespace InstallmentAPI.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("RoleId1")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("UserId1")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
-
-                    b.HasIndex("RoleId1");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
@@ -341,27 +331,15 @@ namespace InstallmentAPI.Migrations
 
             modelBuilder.Entity("InstallmentsAPI.Entities.Models.UserRole", b =>
                 {
-                    b.HasOne("InstallmentsAPI.Entities.Models.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("InstallmentsAPI.Entities.Models.Role", "Role")
                         .WithMany("User")
-                        .HasForeignKey("RoleId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("InstallmentsAPI.Entities.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("InstallmentsAPI.Entities.Models.User", "User")
                         .WithMany("Roles")
-                        .HasForeignKey("UserId1")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
