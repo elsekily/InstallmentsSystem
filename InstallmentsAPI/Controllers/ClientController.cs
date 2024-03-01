@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
-using InstallmentsSystem.Core;
-using InstallmentsSystem.Entities.Models;
-using InstallmentsSystem.Entities.Resources;
+using InstallmentsAPI.Core;
+using InstallmentsAPI.Entities.Models;
+using InstallmentsAPI.Entities.Resources;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace InstallmentsAPI.Controllers;
 [Authorize(Policy = Policies.Moderator)]
