@@ -55,6 +55,18 @@ builder.Services.AddScoped<IClientRepository, ClientsRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAnyOrigin",
+                builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -62,21 +74,25 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors("AllowAnyOrigin");
+
 }
 
 app.UseHttpsRedirection();
-//app.UseStaticFiles();
-
-app.UseRouting();
-//app.UseHttpLogging();
-
 app.UseAuthentication();
+app.UseRouting();
 app.UseAuthorization();
 
+if (app.Environment.IsProduction())
+{
+    app.UseStaticFiles();
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapFallbackToFile("index.html");
+    });
+}
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllers();
 
 
 using (var scope = app.Services.CreateScope())
